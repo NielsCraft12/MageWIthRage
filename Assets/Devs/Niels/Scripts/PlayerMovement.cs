@@ -3,97 +3,135 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Component reference
+    [Header("Player Movement Settings")]
+    [SerializeField]
+    private float speed = 4f;
+
+    [SerializeField]
+    private float jumpForce = 5f;
+
+    [SerializeField]
+    private float rotationSpeed = 100f; // Adjust rotation speed as needed
+
+    [Header("Camera Rotation Settings")]
+    [SerializeField]
+    private float camRotationSpeed = 100f; // Adjust rotation speed as needed
+
+    [SerializeField]
+    private float camBackRotationSpeed = 100f; // Adjust rotation speed as needed
+
+    [SerializeField]
+    private float TimeCamToRotateBack = 1f;
+    private float timer;
+
+    [Header("ARTIST DONT TOUCH THIS")]
+    [SerializeField]
+    private Transform cameraTransform; // Reference to the camera
+
+    [SerializeField]
+    private GameObject camLookPoint;
     private Rigidbody rb;
+    private Vector2 move;
+    private Vector2 rotate;
+    private bool isJumping;
 
-    [Header("Movement")]
-    // Movement settings
-    [SerializeField]
-    private float maxSpeed; // movement speed
-
-    [SerializeField]
-    private float rotationSpeed = 5f; // Speed at which player rotates
-    private Vector2 moveDirection; // Current movement input direction
-
-    // Initialize physics properties
-    private void Awake()
+    private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
-
-        rb.linearDamping = 0.5f; // Remove air resistance
-        rb.mass = 1f; // Set consistent mass
-        rb.angularDamping = 0.05f; // Minimal rotation resistance
-        rb.useGravity = true; // Ensure gravity is on
     }
 
-    private void Start() { }
-
-    // Handle timers and visual effects
-    void Update()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        LookAt();
+        move = context.ReadValue<Vector2>();
     }
 
-    // Physics-based movement calculations
-    private void FixedUpdate()
+    public void OnMouse(InputAction.CallbackContext context)
     {
-        // Maintain the vertical velocity to avoid interference with jumping
-        float yVelocity = rb.linearVelocity.y;
-
-        // Transform the input direction to be relative to the player's rotation
-        Vector3 forward = transform.forward;
-        Vector3 right = transform.right;
-        Vector3 relativeMoveDirection = (
-            forward * moveDirection.y + right * moveDirection.x
-        ).normalized;
-
-        // Apply the calculated movement direction and speed
-        rb.linearVelocity = new Vector3(
-            relativeMoveDirection.x * maxSpeed,
-            yVelocity,
-            relativeMoveDirection.z * maxSpeed
-        );
+        rotate = context.ReadValue<Vector2>();
     }
 
-    // Toggle pause state
-    // public void Pause(InputAction.CallbackContext _context)
-    // {
-    //     SettingsSingleton.Instance.settings.m_IsPaused = !SettingsSingleton
-    //         .Instance
-    //         .settings
-    //         .m_IsPaused;
-    // }
-
-    // Handle trap placement with cooldown
-
-
-    // Process movement input
-    public void OnMove(InputAction.CallbackContext _context)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        moveDirection = _context.ReadValue<Vector2>();
-    }
-
-    // Handle cleaning action input
-
-
-    // Rotate player to face movement direction
-    private void LookAt()
-    {
-        Vector3 direction = rb.linearVelocity;
-        direction.y = 0f;
-
-        if (moveDirection.sqrMagnitude > 0.1f && direction.sqrMagnitude > 0.1f)
+        if (context.performed && IsGrounded())
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-            rb.rotation = Quaternion.Slerp(
-                rb.rotation,
+            isJumping = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (move.sqrMagnitude > 0.01f) // Check if the movement vector is significant
+        {
+            Vector3 targetDirection = new Vector3(move.x, 0, move.y).normalized;
+
+            // Adjust movement direction based on camera orientation
+            targetDirection = cameraTransform.TransformDirection(targetDirection);
+            targetDirection.y = 0; // Keep movement on the horizontal plane
+
+            Vector3 movement = targetDirection * speed;
+            rb.linearVelocity = new Vector3(movement.x, rb.linearVelocity.y, movement.z); // Maintain vertical velocity
+
+            // Rotate the player to face the movement direction
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
                 targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+                Time.deltaTime * 10f
+            ); // Smooth rotation
         }
         else
         {
-            rb.angularVelocity = Vector3.zero;
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0); // Stop horizontal movement
         }
+
+        // Rotate the camLookPoint left and right based on the rotate input
+        if (camLookPoint != null)
+        {
+            camLookPoint.transform.Rotate(0, rotate.x * camRotationSpeed * Time.deltaTime, 0);
+
+            // Reset camLookPoint rotation if it exceeds a certain angle
+            float yRotation = camLookPoint.transform.localEulerAngles.y;
+            if (yRotation > 180)
+            {
+                yRotation -= 360; // Normalize angle to [-180, 180]
+            }
+
+            if (Mathf.Abs(yRotation) > 5)
+            {
+                timer -= Time.deltaTime;
+
+                if (timer <= 0)
+                {
+                    Quaternion targetRotation = Quaternion.Euler(0, transform.rotation.y, 0);
+                    camLookPoint.transform.rotation = Quaternion.Lerp(
+                        camLookPoint.transform.rotation,
+                        targetRotation,
+                        Time.deltaTime * camBackRotationSpeed
+                    );
+                }
+            }
+            else
+            {
+                timer = TimeCamToRotateBack; // Only reset timer when within range
+            }
+        }
+
+        Debug.Log(rotate);
+    }
+
+    private void FixedUpdate()
+    {
+        if (isJumping)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isJumping = false;
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        // Check if the player is grounded using a raycast
+        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
     }
 }
