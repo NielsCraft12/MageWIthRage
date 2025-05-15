@@ -1,21 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Memory : MonoBehaviour
 {
     [Header("Dependencies")]
-    // [SerializeField] private Player player;
-    [SerializeField] private GameObject memoryIcon;
+    [SerializeField] private MemoryUse _memoryUse;
+    [SerializeField] private GameObject _memoryIcon;
     [Header("Settings")]
-    [SerializeField] private string memoryText;
+    [SerializeField] private string _memoryText;
+
+
 
     public void InRange()
     {
-        memoryIcon.SetActive(true);
+        _memoryIcon.SetActive(true);
+        _memoryUse.memoryList.Add(this);
     }
 
     public void OutOfRange()
     {
-        memoryIcon.SetActive(false);
+        _memoryIcon.SetActive(false);
+        _memoryUse.memoryList.Remove(this);
+    }
+
+    public string UseMemory()
+    {
+        _memoryIcon.SetActive(false);
+        Destroy(gameObject);
+        return _memoryText;
     }
 }
