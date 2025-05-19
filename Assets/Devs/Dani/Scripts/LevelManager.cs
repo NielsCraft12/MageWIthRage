@@ -1,0 +1,60 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class LevelManager : MonoBehaviour
+{
+    public static LevelManager instance;
+
+    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE")][SerializeField] private List<string> levels = new List<string>();
+    [SerializeField] private string scenePath = "Assets/Scenes/";
+
+    [Header("Game Settings")]
+    [HideInInspector] public bool newGamePlus = false;
+    [HideInInspector] public int currentLevel = 0;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        SaveData data = LoadSystem.LoadGameData();
+
+        if (data != null)
+        {
+            newGamePlus = data.levelData.newGamePlus;
+            currentLevel = data.levelData.currentLevel;
+        }
+    }
+
+    public void LoadLevel(string levelName)
+    {
+        SceneManager.LoadScene(scenePath + levelName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            SaveSystem.SaveGame();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveSystem.SaveGame();
+    }
+}
