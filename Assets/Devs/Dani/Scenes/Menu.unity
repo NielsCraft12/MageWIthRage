@@ -376,11 +376,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde4937287fbac04e8e4b39cbfbabf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
-  - 
-  scenePath: Assets/Scenes/
+  gameManager: {fileID: 0}
   newGamePlus: 0
   currentLevel: 0
+  currentCheckpoint: 0
+  levels:
+  - Level1
+  - Level2
+  - Level3
+  scenePath: Devs/Dani/Scenes/
 --- !u!4 &704792257
 Transform:
   m_ObjectHideFlags: 0
@@ -1243,9 +1247,8 @@ GameObject:
   - component: {fileID: 7808301423236161}
   - component: {fileID: 8118186350296293194}
   - component: {fileID: 9195401855944676923}
-  - component: {fileID: 9195401855944676924}
   m_Layer: 5
-  m_Name: Levels
+  m_Name: Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1826,7 +1829,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Levels
+  m_text: 'Play
 
 '
   m_isRightToLeft: 0
@@ -2747,18 +2750,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9195401855944676924}
-        m_TargetAssemblyTypeName: TESTSaveIncrease, Assembly-CSharp
-        m_MethodName: IncreaseLevel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!222 &8118646673455430573
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2880,18 +2871,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partOfScreen: 0
   showScreen: 0
---- !u!114 &9195401855944676924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1066197696741873439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88f402a74710caa44a745d7111807948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &9222012162269461451
 RectTransform:
   m_ObjectHideFlags: 0

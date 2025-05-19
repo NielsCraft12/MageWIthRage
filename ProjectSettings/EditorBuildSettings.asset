@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Devs/Dani/Scenes/Menu.unity
     guid: 874d9925603bdcd46aaa7f19ef40bda1
+  - enabled: 1
+    path: Assets/Devs/Dani/Scenes/Level1.unity
+    guid: 5c1f6474e19681d42ad0eba619e4cebe
+  - enabled: 1
+    path: Assets/Devs/Dani/Scenes/Level2.unity
+    guid: 18cc325682380bf488322d88eb25086c
+  - enabled: 1
+    path: Assets/Devs/Dani/Scenes/Level3.unity
+    guid: a1526ac1a27c49e4ba3a4117ff53af2e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 51034fedf2acb724c975ff971735f3b9, type: 3}
   m_UseUCBPForAssetBundles: 0
