@@ -32,10 +32,12 @@ public class LevelData
 {
     [SerializeField] public bool newGamePlus = false;
     [SerializeField] public int currentLevel = 0;
+    [SerializeField] public int currentCheckpoint = 0;
 
     public LevelData(LevelManager levelManager)
     {
         newGamePlus = levelManager.newGamePlus;
         currentLevel = levelManager.currentLevel;
+        currentCheckpoint = levelManager.currentCheckpoint;
     }
 }

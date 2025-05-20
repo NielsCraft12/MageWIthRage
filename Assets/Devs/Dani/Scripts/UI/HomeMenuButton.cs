@@ -13,7 +13,7 @@ public class HomeMenuButton : MonoBehaviour
 
     public void Play()
     {
-        // SceneManager.LoadScene("Game");
+        LevelManager.instance.LoadLevel();
     }
 
     public void QuitToDesktop()

@@ -7,12 +7,17 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
 
-    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE")][SerializeField] private List<string> levels = new List<string>();
-    [SerializeField] private string scenePath = "Assets/Scenes/";
+    [Header("Dependencies")]
+    [SerializeField] private GameManager gameManager;
 
     [Header("Game Settings")]
     [HideInInspector] public bool newGamePlus = false;
-    [HideInInspector] public int currentLevel = 0;
+    [HideInInspector] public int currentLevel = 1;
+    [HideInInspector] public int currentCheckpoint = 0;
+
+
+    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE")] public List<string> levels = new List<string>();
+    [SerializeField] private string scenePath = "Assets/Scenes/";
 
     private void Awake()
     {
@@ -32,12 +37,15 @@ public class LevelManager : MonoBehaviour
         {
             newGamePlus = data.levelData.newGamePlus;
             currentLevel = data.levelData.currentLevel;
+            currentCheckpoint = data.levelData.currentCheckpoint;
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void LoadLevel(string levelName)
+    public void LoadLevel()
     {
-        SceneManager.LoadScene(scenePath + levelName);
+        SceneManager.LoadScene(scenePath + levels[currentLevel - 1]);
     }
 
     public void QuitGame()
@@ -56,5 +64,15 @@ public class LevelManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveSystem.SaveGame();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == levels[currentLevel - 1])
+        {
+            Debug.Log("Level loaded: " + scene.name);
+            gameManager = GameManager.instance;
+            gameManager.OnHook();
+        }
     }
 }
