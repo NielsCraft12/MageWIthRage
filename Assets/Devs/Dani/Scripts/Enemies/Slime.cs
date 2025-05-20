@@ -13,7 +13,7 @@ public class Slime : Enemy
     private Transform _player;
 
     [SerializeField]
-    private ParticleSystem _particleSystem;
+    private ParticleSystem _ps;
 
     [Header("Settings")]
     [SerializeField]
@@ -133,8 +133,8 @@ public class Slime : Enemy
 
         if (_rb.linearVelocity.magnitude >= _minPSVelocity)
         {
-            _particleSystem.Play();
-            var main = _particleSystem.main;
+            _ps.Play();
+            var main = _ps.main;
             main.startSpeed = _rb.linearVelocity.magnitude * _PSVelocityScale;
         }
 
