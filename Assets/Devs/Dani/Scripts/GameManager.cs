@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public void OnHook()
     {
         levelManager = LevelManager.instance;
-        int currentCheckpoint = LevelManager.instance.currentCheckpoint;
+        currentCheckpoint = LevelManager.instance.currentCheckpoint;
         if (currentCheckpoint != 0)
         {
             player.transform.position = checkpoints[currentCheckpoint - 1].position;

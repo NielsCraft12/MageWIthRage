@@ -4,11 +4,11 @@ public class Checkpoint : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private int checkpointIndex;
+    [Tooltip("Starts at 1, 0 is none")][SerializeField] private int checkpointIndex;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Player")
+        if (other.name == "Player" && gameManager.currentCheckpoint < checkpointIndex)
         {
             gameManager.currentCheckpoint = checkpointIndex;
             LevelManager.instance.currentCheckpoint = checkpointIndex;
