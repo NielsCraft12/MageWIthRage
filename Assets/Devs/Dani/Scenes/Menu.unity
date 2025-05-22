@@ -380,6 +380,7 @@ MonoBehaviour:
   newGamePlus: 0
   currentLevel: 0
   currentCheckpoint: 0
+  abilitiesUnlocked: 0
   levels:
   - Level1
   - Level2

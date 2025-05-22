@@ -9,8 +9,7 @@ public class Memory : MonoBehaviour
     [SerializeField] private GameObject _memoryIcon;
     [Header("Settings")]
     [SerializeField] private string _memoryText;
-
-
+    [Tooltip("Up to what abilities this memory unlocks")][SerializeField] private int _unlocksAbility;
 
     public void InRange()
     {
@@ -27,6 +26,7 @@ public class Memory : MonoBehaviour
     public string UseMemory()
     {
         _memoryIcon.SetActive(false);
+        //Unlock abilities
         Destroy(gameObject);
         return _memoryText;
     }
