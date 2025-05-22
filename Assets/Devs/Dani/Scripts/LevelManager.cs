@@ -14,9 +14,9 @@ public class LevelManager : MonoBehaviour
     [HideInInspector] public bool newGamePlus = false;
     [HideInInspector] public int currentLevel = 1;
     [HideInInspector] public int currentCheckpoint = 0;
+    [HideInInspector] public int abilitiesUnlocked = 0;
 
-
-    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE")] public List<string> levels = new List<string>();
+    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE. Example: 'Level1'")] public List<string> levels = new List<string>();
     [SerializeField] private string scenePath = "Assets/Scenes/";
 
     private void Awake()
@@ -35,9 +35,10 @@ public class LevelManager : MonoBehaviour
 
         if (data != null)
         {
-            newGamePlus = data.levelData.newGamePlus;
-            currentLevel = data.levelData.currentLevel;
-            currentCheckpoint = data.levelData.currentCheckpoint;
+            newGamePlus = data.gameData.newGamePlus;
+            currentLevel = data.gameData.currentLevel;
+            currentCheckpoint = data.gameData.currentCheckpoint;
+            abilitiesUnlocked = data.gameData.abilitiesUnlocked;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;

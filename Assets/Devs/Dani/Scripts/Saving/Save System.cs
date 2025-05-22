@@ -9,8 +9,8 @@ public static class SaveSystem
     public static void SaveGame()
     {
         string path = Application.persistentDataPath + SaveFileName;
-        LevelData levelData = new LevelData(LevelManager.instance);
-        SaveData saveData = new SaveData(levelData);
+        GameData gameData = new GameData(LevelManager.instance);
+        SaveData saveData = new SaveData(gameData);
         string json = JsonUtility.ToJson(saveData);
         File.WriteAllText(path, json);
     }
@@ -19,25 +19,31 @@ public static class SaveSystem
 [Serializable]
 public class SaveData
 {
-    [SerializeField] public LevelData levelData;
+    [SerializeField] public GameData gameData;
 
-    public SaveData(LevelData levelData)
+    public SaveData(GameData levelData)
     {
-        this.levelData = levelData;
+        this.gameData = levelData;
     }
 }
 
 [Serializable]
-public class LevelData
+public class GameData
 {
     [SerializeField] public bool newGamePlus = false;
     [SerializeField] public int currentLevel = 0;
     [SerializeField] public int currentCheckpoint = 0;
+    [SerializeField] public int abilitiesUnlocked = 0;
 
-    public LevelData(LevelManager levelManager)
+    public GameData(LevelManager levelManager)
     {
         newGamePlus = levelManager.newGamePlus;
         currentLevel = levelManager.currentLevel;
         currentCheckpoint = levelManager.currentCheckpoint;
     }
+
+    // public GameData(Player player)
+    // {
+    //     abilitiesUnlocked = player.abilitiesUnlocked;
+    // }
 }
