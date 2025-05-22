@@ -37,7 +37,7 @@ public class Attack2 : MonoBehaviour
     {
         // Debug.Log("AttackEnemy called");
         // Play attack animation
-        animator.SetTrigger("bonk");
+        //        animator.SetTrigger("bonk");
     }
 
     void OnTriggerEnter(Collider other)
