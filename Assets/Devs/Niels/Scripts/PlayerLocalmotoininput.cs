@@ -11,6 +11,7 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
     public PlayerControls PlayerControls { get; private set; }
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
+    public bool JumpPressed { get; private set; }
 
     void OnEnable()
     {
@@ -25,6 +26,11 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
     {
         PlayerControls.Disable();
         PlayerControls.Player.RemoveCallbacks(this);
+    }
+
+    void LateUpdate()
+    {
+        JumpPressed = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -47,5 +53,14 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
         {
             SprintToggleOn = !holdToSprint || SprintToggleOn;
         }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            return;
+        }
+        JumpPressed = true;
     }
 }

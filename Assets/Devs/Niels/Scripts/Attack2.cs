@@ -3,35 +3,35 @@ using UnityEngine.InputSystem;
 
 public class Attack2 : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject enemy;
+    // [SerializeField]
+    // private GameObject enemy;
 
-    PlayerControlls playerControlls;
+    // PlayerControls playerControls;
 
-    [SerializeField]
-    Animator animator;
+    // [SerializeField]
+    // Animator animator;
 
     Health enemyHealth;
 
-    private void Awake()
-    {
-        playerControlls = new PlayerControlls();
-    }
+    // private void Awake()
+    // {
+    //     playerControls = new PlayerControls();
+    // }
 
-    private void OnEnable()
-    {
-        playerControlls.Player.Attack.performed -= AttackEnemy; // Unsubscribe to prevent duplicates
-        playerControlls.Player.Attack.performed += AttackEnemy; // Subscribe to input action
-        playerControlls.Enable();
-        //  Debug.Log("Input action subscribed and enabled");
-    }
+    // private void OnEnable()
+    // {
+    //     playerControls.Actions.Attack.performed -= AttackEnemy; // Unsubscribe to prevent duplicates
+    //     playerControls.Actions.Attack.performed += AttackEnemy; // Subscribe to input action
+    //     playerControls.Enable();
+    //     //  Debug.Log("Input action subscribed and enabled");
+    // }
 
-    private void OnDisable()
-    {
-        playerControlls.Player.Attack.performed -= AttackEnemy; // Unsubscribe to avoid memory leaks
-        playerControlls.Disable();
-        //    Debug.Log("Input action unsubscribed and disabled");
-    }
+    // private void OnDisable()
+    // {
+    //     playerControls.Actions.Attack.performed -= AttackEnemy; // Unsubscribe to avoid memory leaks
+    //     playerControls.Disable();
+    //     //    Debug.Log("Input action unsubscribed and disabled");
+    // }
 
     public void AttackEnemy(InputAction.CallbackContext context)
     {
