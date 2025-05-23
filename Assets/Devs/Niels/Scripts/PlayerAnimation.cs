@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField]
-    private Animator animator;
+    public Animator animator;
 
     [SerializeField]
     private float localmotionBlendSpeed = 0.02f;
@@ -14,10 +14,16 @@ public class PlayerAnimation : MonoBehaviour
     private bool IdleOnce = false;
 
     private PlayerLocalmotoininput playerLocalMotoinInput;
+    private PlayerActionsnput playerActionsInput;
 
     private static int inputXHash = Animator.StringToHash("InputX");
     private static int inputYHash = Animator.StringToHash("InputY");
     private static int inputMagnetugeHash = Animator.StringToHash("InputMagnitude");
+    public int idleHash = Animator.StringToHash("Idle");
+    private static int isGroundedHash = Animator.StringToHash("IsGrounded");
+    private static int isJumpingHash = Animator.StringToHash("IsJumping");
+    private static int isFallingHash = Animator.StringToHash("IsFalling");
+    private static int isAttackingHash = Animator.StringToHash("IsAttacking");
 
     private Vector3 currentBlendInput = Vector3.zero;
 
@@ -26,6 +32,7 @@ public class PlayerAnimation : MonoBehaviour
         playerLocalMotoinInput = GetComponent<PlayerLocalmotoininput>();
         playerState = GetComponent<PlayerState>();
         playerController = GetComponent<PlayerCotroller>();
+        playerActionsInput = GetComponent<PlayerActionsnput>();
     }
 
     private void Update()
@@ -35,24 +42,12 @@ public class PlayerAnimation : MonoBehaviour
 
     private void UpdateanimationState()
     {
-        // if (currentBlendInput.magnitude < playerController.movingThreshold + 0.07f)
-        // {
-        //     currentBlendInput = Vector3.zero;
-        //     if (!IdleOnce)
-        //     {
-        //         animator.Play("Blend Tree", 0, 0f);
-        //         IdleOnce = true;
-        //     }
-        // }
-        // else if (currentBlendInput.magnitude > playerController.movingThreshold + 0.07f)
-        // {
-        //     if (IdleOnce)
-        //     {
-        //         IdleOnce = false;
-        //     }
-        // }
-
+        bool isIdling = playerState.CurrentPlayerMovementState == PlayerMovementState.Idling;
+        bool isRunning = playerState.CurrentPlayerMovementState == PlayerMovementState.Running;
         bool isSprinting = playerState.CurrentPlayerMovementState == PlayerMovementState.Sprinting;
+        bool isJumping = playerState.CurrentPlayerMovementState == PlayerMovementState.Jumping;
+        bool isFalling = playerState.CurrentPlayerMovementState == PlayerMovementState.Falling;
+        bool isGrounded = playerState.InGroundState();
 
         Vector2 inputTarget = isSprinting
             ? playerLocalMotoinInput.MovementInput * 1.5f
@@ -64,6 +59,10 @@ public class PlayerAnimation : MonoBehaviour
             localmotionBlendSpeed * Time.deltaTime
         );
 
+        animator.SetBool(isGroundedHash, isGrounded);
+        animator.SetBool(isJumpingHash, isJumping);
+        animator.SetBool(isAttackingHash, playerActionsInput.AttackPressed);
+        animator.SetBool(isFallingHash, isFalling);
         animator.SetFloat(inputXHash, currentBlendInput.x);
         animator.SetFloat(inputYHash, currentBlendInput.y);
         animator.SetFloat(inputMagnetugeHash, currentBlendInput.magnitude);
