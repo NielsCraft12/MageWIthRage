@@ -30,6 +30,8 @@ public class PlayerCotroller : MonoBehaviour
     private PlayerState playerState;
     Vector2 cameraRotation = Vector2.zero;
     private Vector2 playerRotation = Vector2.zero;
+
+    private float vericleVelocity = 0f;
     #endregion
     #region Startup
     private void Awake()
@@ -44,6 +46,7 @@ public class PlayerCotroller : MonoBehaviour
     private void Update()
     {
         HandleLateralMeovment();
+        HandleVirticleMeovment();
         UpdateMovementState();
     }
 
@@ -61,11 +64,38 @@ public class PlayerCotroller : MonoBehaviour
                 : PlayerMovementState.Idling;
 
         playerState.setPlayerMovementState(lateralMovementState);
+
+        if (!isGrounded && characterController.velocity.y > 0f)
+        {
+            playerState.setPlayerMovementState(PlayerMovementState.Jumping);
+        }
+        else if (!isGrounded && characterController.velocity.y < 0f)
+        {
+            playerState.setPlayerMovementState(PlayerMovementState.Falling);
+        }
+    }
+
+    private void HandleVirticleMeovment()
+    {
+        bool isGrounded = playerState.InGroundState();
+
+        if (isGrounded && vericleVelocity < 0f)
+        {
+            vericleVelocity = 0f;
+        }
+
+        vericleVelocity -= gravity * Time.deltaTime;
+
+        if (playerLocalMotoinInput.JumpPressed && isGrounded)
+        {
+            vericleVelocity = Mathf.Sqrt(jumpSpeed * 3 * gravity);
+        }
     }
 
     private void HandleLateralMeovment()
     {
         bool isSprinting = playerState.CurrentPlayerMovementState == PlayerMovementState.Sprinting;
+        bool isGrounded = playerState.InGroundState();
 
         float lateralAcceleration = isSprinting ? sprintAcceleration : runAcceleration;
         float clampLateralMagnatude = isSprinting ? SprintSpeed : runSpeed;
@@ -95,7 +125,7 @@ public class PlayerCotroller : MonoBehaviour
                 : Vector3.zero;
 
         newVelocity = Vector3.ClampMagnitude(newVelocity, clampLateralMagnatude);
-
+        newVelocity.y = vericleVelocity;
         characterController.Move(newVelocity * Time.deltaTime);
     }
     #endregion
