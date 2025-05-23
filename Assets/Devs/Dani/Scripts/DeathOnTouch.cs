@@ -4,9 +4,10 @@ public class DeathOnTouch : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.name == "Player")
         {
-            // PlayerDeath();
+            Vector3 newPos = GameManager.instance.checkpoints[GameManager.instance.currentCheckpoint - 1].position;
+            // Player.transform.position = newPos;
         }
     }
 }

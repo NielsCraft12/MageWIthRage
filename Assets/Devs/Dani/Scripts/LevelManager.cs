@@ -49,6 +49,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(scenePath + levels[currentLevel - 1]);
     }
 
+    public void ToHome()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
