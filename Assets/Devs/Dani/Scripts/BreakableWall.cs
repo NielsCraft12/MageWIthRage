@@ -14,7 +14,7 @@ public class BreakableWall : MonoBehaviour
 
     private IEnumerator BreakWall()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
     }
 }
