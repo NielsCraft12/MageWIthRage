@@ -27,6 +27,11 @@ public class Memory : MonoBehaviour
     {
         _memoryIcon.SetActive(false);
         //Unlock abilities
+        if (_unlocksAbility > LevelManager.instance.abilitiesUnlocked)
+        {
+            LevelManager.instance.abilitiesUnlocked = _unlocksAbility;
+            Debug.Log("Abilities unlocked: " + _unlocksAbility);
+        }
         Destroy(gameObject);
         return _memoryText;
     }

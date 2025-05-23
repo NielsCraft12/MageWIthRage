@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [Header("Dependencies")]
     private LevelManager levelManager;
     [SerializeField] private GameObject player;
-    [SerializeField] private Transform[] checkpoints;
+    public Transform[] checkpoints;
     [HideInInspector] public int currentCheckpoint;
 
     void Awake()
