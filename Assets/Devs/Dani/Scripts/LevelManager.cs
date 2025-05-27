@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,9 +9,11 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
 
     [Header("Dependencies")]
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private LevelTransition _levelTransition;
 
     [Header("Game Settings")]
+    [SerializeField] private float _levelTransitionDelay = 1f;
     [HideInInspector] public bool newGamePlus = false;
     [HideInInspector] public int currentLevel = 1;
     [HideInInspector] public int currentCheckpoint = 0;
@@ -46,7 +49,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(scenePath + levels[currentLevel - 1]);
+        StartCoroutine(SceneLoad());
+        // select
     }
 
     public void ToHome()
@@ -77,8 +81,31 @@ public class LevelManager : MonoBehaviour
         if (scene.name == levels[currentLevel - 1])
         {
             Debug.Log("Level loaded: " + scene.name);
-            gameManager = GameManager.instance;
-            gameManager.OnHook();
+            _gameManager = GameManager.instance;
+            _gameManager.OnHook();
+        }
+    }
+
+    private IEnumerator SceneLoad()
+    {
+        _levelTransition.FadeIn();
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scenePath + levels[currentLevel - 1]);
+
+        asyncLoad.allowSceneActivation = false; // Prevent automatic activation
+
+        // Wait for the delay
+
+
+        yield return new WaitForSecondsRealtime(_levelTransitionDelay);
+
+        // Allow scene activation after the delay
+        asyncLoad.allowSceneActivation = true;
+
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+            _levelTransition.FadeOut();
         }
     }
 }

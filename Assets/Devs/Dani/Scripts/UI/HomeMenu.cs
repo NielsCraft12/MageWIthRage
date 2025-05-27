@@ -26,6 +26,11 @@ public class HomeMenu : MonoBehaviour
         public Selectable firstButton;
     }
 
+    void OnDisable()
+    {
+        screens[0].buttonCollection.InteractableToggle();
+    }
+
     public void LoadScreen(int partOfScreen, int requestedScreen)
     {
         Screens calledScreen = screens[requestedScreen];
@@ -42,7 +47,6 @@ public class HomeMenu : MonoBehaviour
             screen.buttonCollection.InteractableToggle();
             screen.rectTransform.transform.DOLocalMoveY(screen.RestPosY, 0.75f);
         }
-
     }
 }
 
