@@ -1,33 +1,45 @@
 using System.Collections;
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Slime : Enemy
 {
     [Header("Dependencies")]
-    [SerializeField] private Rigidbody _rb;
+    [SerializeField]
+    private Rigidbody _rb;
 
-    [SerializeField] private Transform _player;
+    [SerializeField]
+    private Transform _player;
 
-    [SerializeField] private ParticleSystem _ps;
+    [SerializeField]
+    private ParticleSystem _ps;
 
     [Header("Settings")]
-    [SerializeField] private float _jumpForce = 5f;
+    [SerializeField]
+    private float _jumpForce = 5f;
 
-    [SerializeField] private float _jumpHeight = 2f;
+    [SerializeField]
+    private float _jumpHeight = 2f;
 
-    [SerializeField] private float _jumpCooldown = 2f;
+    [SerializeField]
+    private float _jumpCooldown = 2f;
 
-    [SerializeField] private float _idleDistance = 1f;
+    [SerializeField]
+    private float _idleDistance = 1f;
 
     [Tooltip("Multiplier of velocity that increases the particle system's startspeed")]
-    [Range(0, 2)][SerializeField] private float _PSVelocityScale = 1f;
+    [Range(0, 2)]
+    [SerializeField]
+    private float _PSVelocityScale = 1f;
 
     [Tooltip("Minimal speed required to play the particle system")]
-    [Range(0, 5)][SerializeField] private float _minPSVelocity = 1f;
+    [Range(0, 5)]
+    [SerializeField]
+    private float _minPSVelocity = 1f;
 
-    [Range(0, 5)][SerializeField] private float _rotateSpeed = 1f;
+    [Range(0, 5)]
+    [SerializeField]
+    private float _rotateSpeed = 1f;
     private Vector3 _startPos;
     Vector3 lookDir;
     private bool _canJump = true;
@@ -80,7 +92,7 @@ public class Slime : Enemy
     {
         _canJump = false;
         _rb.AddForce(
-        (Vector3.up * _jumpHeight) + (_startPos - transform.position).normalized * _jumpForce,
+            (Vector3.up * _jumpHeight) + (_startPos - transform.position).normalized * _jumpForce,
             ForceMode.Impulse
         );
         _jumpCoroutine = StartCoroutine(JumpCooldown());
@@ -106,6 +118,7 @@ public class Slime : Enemy
         );
         _jumpCoroutine = StartCoroutine(JumpCooldown());
     }
+
     private IEnumerator JumpCooldown()
     {
         yield return new WaitForSeconds(_jumpCooldown);

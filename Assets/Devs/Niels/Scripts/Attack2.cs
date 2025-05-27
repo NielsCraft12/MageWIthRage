@@ -51,5 +51,15 @@ public class Attack2 : MonoBehaviour
                 enemyHealth.TakeDamage(10); // Deal 10 damage (adjust as needed)
             }
         }
+
+        if (other.gameObject.CompareTag("Breakable"))
+        {
+            Debug.Log("Breakable wall hit by attack");
+            BreakableWall breakableWall = other.gameObject.GetComponent<BreakableWall>();
+            Debug.Log(breakableWall);
+            breakableWall.Break(); // Call the Break method on the BreakableWall component
+        }
+
+        Debug.Log("OnTriggerEnter called with " + other.gameObject.name);
     }
 }

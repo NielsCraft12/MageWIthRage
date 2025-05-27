@@ -8,16 +8,25 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
 
     [Header("Dependencies")]
-    [SerializeField] private GameManager gameManager;
+    [SerializeField]
+    private GameManager gameManager;
 
     [Header("Game Settings")]
-    [HideInInspector] public bool newGamePlus = false;
-    [HideInInspector] public int currentLevel = 1;
-    [HideInInspector] public int currentCheckpoint = 0;
-    [HideInInspector] public int abilitiesUnlocked = 0;
+    [HideInInspector]
+    public bool newGamePlus = false;
+    public int currentLevel = 1;
 
-    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE. Example: 'Level1'")] public List<string> levels = new List<string>();
-    [SerializeField] private string scenePath = "Assets/Scenes/";
+    [HideInInspector]
+    public int currentCheckpoint = 0;
+
+    [HideInInspector]
+    public int abilitiesUnlocked = 0;
+
+    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE. Example: 'Level1'")]
+    public List<string> levels = new List<string>();
+
+    [SerializeField]
+    private string scenePath = "Assets/Scenes/";
 
     private void Awake()
     {
