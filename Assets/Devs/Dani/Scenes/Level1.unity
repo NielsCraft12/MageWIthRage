@@ -443,7 +443,7 @@ PrefabInstance:
     - target: {fileID: 1453984003073000688, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1175392971}
     - target: {fileID: 5796064592009935147, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: m_Name
       value: Slime
@@ -1997,10 +1997,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Breakable wall (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 8467454668280095165, guid: e783072e2dd39df429e9f8049e0f5eed, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2990,63 +2986,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6193751583884834308, guid: e508b7ba04fc54edd8b9c30117398b4b, type: 3}
   m_PrefabInstance: {fileID: 296664966}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &309937918
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -17.944
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.521
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.289
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7169806
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.69709325
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 88.389
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198347284102257171, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3324234278168598673, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
-      propertyPath: m_Name
-      value: Player New Third Person
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4ed71998e9e0e0841ab3e0a476bbe8f4, type: 3}
 --- !u!1001 &314135961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3562,7 +3501,7 @@ PrefabInstance:
     - target: {fileID: 7412165114521875084, guid: 19053b0106103dd4a98f892fe0dc8eac, type: 3}
       propertyPath: _memoryUse
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1175392970}
     - target: {fileID: 7412165114521875084, guid: 19053b0106103dd4a98f892fe0dc8eac, type: 3}
       propertyPath: _memoryText
       value: Breaking memory
@@ -3628,7 +3567,7 @@ PrefabInstance:
     - target: {fileID: 1453984003073000688, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1175392971}
     - target: {fileID: 5796064592009935147, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: m_Name
       value: Slime
@@ -5928,7 +5867,7 @@ PrefabInstance:
     - target: {fileID: 7412165114521875084, guid: 19053b0106103dd4a98f892fe0dc8eac, type: 3}
       propertyPath: _memoryUse
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1175392970}
     - target: {fileID: 7412165114521875084, guid: 19053b0106103dd4a98f892fe0dc8eac, type: 3}
       propertyPath: _memoryText
       value: Jumping memory
@@ -6046,10 +5985,6 @@ PrefabInstance:
     - target: {fileID: 8467454668280095165, guid: e783072e2dd39df429e9f8049e0f5eed, type: 3}
       propertyPath: m_Name
       value: Breakable wall (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467454668280095165, guid: e783072e2dd39df429e9f8049e0f5eed, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7995,7 +7930,7 @@ PrefabInstance:
     - target: {fileID: 1453984003073000688, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1175392971}
     - target: {fileID: 5796064592009935147, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: m_Name
       value: Slime
@@ -11680,6 +11615,83 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149457823}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1175392969
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 737052511151477693, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: _memoryText
+      value: 
+      objectReference: {fileID: 1961626207}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -18.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204099638733376914, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+--- !u!114 &1175392970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 737052511151477693, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+  m_PrefabInstance: {fileID: 1175392969}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a05e2577f4df7440828a19c8a2dab2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1175392971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6654523388796523451, guid: 69233ddceaeea1d4c9d29b78c5f2e34a, type: 3}
+  m_PrefabInstance: {fileID: 1175392969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1181558283
 GameObject:
   m_ObjectHideFlags: 0
@@ -11861,7 +11873,7 @@ PrefabInstance:
     - target: {fileID: 1453984003073000688, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1175392971}
     - target: {fileID: 5796064592009935147, guid: 18a8e7bd490dcca4b8117508961bf596, type: 3}
       propertyPath: m_Name
       value: Slime
@@ -18058,7 +18070,7 @@ PrefabInstance:
     - target: {fileID: 7412165114521875084, guid: 19053b0106103dd4a98f892fe0dc8eac, type: 3}
       propertyPath: _memoryUse
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1175392970}
     - target: {fileID: 7412165114521875084, guid: 19053b0106103dd4a98f892fe0dc8eac, type: 3}
       propertyPath: _memoryText
       value: Movement memory
@@ -18769,6 +18781,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6455653018535270820, guid: d4d611c54d2c84ea0bd4565e1da7eb96, type: 3}
   m_PrefabInstance: {fileID: 1960933887}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1961626207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 613825059322655998, guid: 47d29134897c26241bf3961fe1c2669c, type: 3}
+  m_PrefabInstance: {fileID: 905697575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8283bbf55af96464990dbc3539c9e6e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1962178707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20660,10 +20683,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Breakable wall
       objectReference: {fileID: 0}
-    - target: {fileID: 5494489840466259835, guid: 65a6a5f6cb674644d92d333aae6dc95e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20682,7 +20701,7 @@ SceneRoots:
   - {fileID: 1235671628}
   - {fileID: 1953495022}
   - {fileID: 1931836827}
+  - {fileID: 1175392969}
   - {fileID: 93599449}
   - {fileID: 976727977}
   - {fileID: 284776884}
-  - {fileID: 309937918}

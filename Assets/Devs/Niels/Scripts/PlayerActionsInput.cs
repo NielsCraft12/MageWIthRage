@@ -6,13 +6,9 @@ public class PlayerActionsnput : MonoBehaviour, PlayerControls.IActionsActions
 {
     public PlayerControls PlayerControls { get; private set; }
     public bool AttackPressed { get; private set; }
-    public bool InteractPressed { get; private set; }
-
-    private MemoryUse memoryUse;
 
     void OnEnable()
     {
-        memoryUse = GetComponent<MemoryUse>();
         PlayerControls = new PlayerControls();
         PlayerControls.Enable();
 
@@ -29,7 +25,6 @@ public class PlayerActionsnput : MonoBehaviour, PlayerControls.IActionsActions
     void LateUpdate()
     {
         AttackPressed = false;
-        InteractPressed = true;
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -38,13 +33,5 @@ public class PlayerActionsnput : MonoBehaviour, PlayerControls.IActionsActions
             return;
 
         AttackPressed = true;
-    }
-
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
-            return;
-        InteractPressed = true;
-        memoryUse.UseNewestMemory();
     }
 }
