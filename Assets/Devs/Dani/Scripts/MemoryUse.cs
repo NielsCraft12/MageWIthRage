@@ -16,11 +16,11 @@ public class MemoryUse : MonoBehaviour
     {
         memoryList = new List<Memory>();
 
-        _playerInput = GetComponent<PlayerInput>();
+        // _playerInput = GetComponent<PlayerInput>();
         // _playerInput.actions["Interact"].performed += ctx => UseNewestMemory();
     }
 
-    public void UseNewestMemory(InputAction.CallbackContext context)
+    public void UseNewestMemory()
     {
         if (memoryList.Count > 0)
         {

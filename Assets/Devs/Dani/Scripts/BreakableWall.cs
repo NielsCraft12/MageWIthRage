@@ -9,12 +9,12 @@ public class BreakableWall : MonoBehaviour
     public void Break()
     {
         onBreak.Invoke();
-        BreakWall();
+        StartCoroutine(BreakWall());
     }
 
     private IEnumerator BreakWall()
     {
-        yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
     }
 }

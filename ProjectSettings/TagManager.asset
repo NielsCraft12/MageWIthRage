@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Hammer
+  - Breakable
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Slime
-  - 
+  - Player
   - 
   - 
   - 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerCotroller : MonoBehaviour
 {
     #region Class Variables
-    [Header("Components")]
+    [Header("Components ARTISTS DONT TOUCH")]
     [SerializeField]
     private CharacterController characterController;
 

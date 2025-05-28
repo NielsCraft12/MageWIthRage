@@ -3,17 +3,22 @@ using UnityEngine;
 public class IdleManager : MonoBehaviour
 {
     [SerializeField]
-    PlayerAnimation playerAnimation;
+    private PlayerAnimation playerAnimation;
 
     [SerializeField]
-    PlayerState playerState;
+    private PlayerState playerState;
 
     [SerializeField]
-    float waittime = 0.85f;
+    private float waittime = 0.85f;
 
-    float idleIndex = 0f;
+    private float idleIndex = 0f;
 
-    bool isSitting = true;
+    private bool isSitting = true;
+
+    private bool isAttackTriggerActive = false;
+
+    [SerializeField]
+    private BoxCollider attackTrigger;
 
     void Update()
     {
@@ -25,6 +30,20 @@ public class IdleManager : MonoBehaviour
         if (playerState.CurrentPlayerMovementState != PlayerMovementState.Idling)
         {
             isSitting = true;
+        }
+    }
+
+    public void ToggleTrigger()
+    {
+        if (isAttackTriggerActive)
+        {
+            attackTrigger.enabled = false;
+            isAttackTriggerActive = false;
+        }
+        else
+        {
+            attackTrigger.enabled = true;
+            isAttackTriggerActive = true;
         }
     }
 }
