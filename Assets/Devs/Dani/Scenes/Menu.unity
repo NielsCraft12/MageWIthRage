@@ -495,7 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 0}
-  _levelTransition: {fileID: 630549994}
+  _levelTransition: {fileID: 0}
   _levelTransitionDelay: 1
   newGamePlus: 0
   currentLevel: 0

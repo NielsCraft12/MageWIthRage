@@ -73,7 +73,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: -8391286252137642233, guid: 3a34b0e72fc1bb648ae68921239770ce, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -251,7 +251,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Armature|slime walk/jump
+  m_Name: jumping
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -266,7 +266,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3531658747730319158, guid: 1a426d3e507ae8440a1434ac4cff5e05, type: 3}
+  m_Motion: {fileID: -1176968967807021547, guid: 3a34b0e72fc1bb648ae68921239770ce, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -279,7 +279,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Armature|slime attack
+  m_Name: attacking
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -294,7 +294,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -564285043957181146, guid: 1a426d3e507ae8440a1434ac4cff5e05, type: 3}
+  m_Motion: {fileID: 6466189043411115489, guid: 3a34b0e72fc1bb648ae68921239770ce, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -307,7 +307,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Armature|slimedeath
+  m_Name: dying
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -320,7 +320,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1397326855973400044, guid: 1a426d3e507ae8440a1434ac4cff5e05, type: 3}
+  m_Motion: {fileID: -637772914894037457, guid: 3a34b0e72fc1bb648ae68921239770ce, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -15,21 +15,24 @@ public class Slime : Enemy
     [SerializeField] private float _jumpHeight = 2f;
     [SerializeField] private float _jumpCooldown = 2f;
     [SerializeField] private float _idleDistance = 1f;
-
+    [Tooltip("Magnitude of the velocity required to gain a control frame")]
+    [Range(0, 2)][SerializeField] private float _controlFrameAmount = 1f;
     [Tooltip("Multiplier of velocity that increases the particle system's startspeed")]
     [Range(0, 2)][SerializeField] private float _PSVelocityScale = 1f;
     [Tooltip("Minimal speed required to play the particle system")]
     [Range(0, 5)][SerializeField] private float _minPSVelocity = 1f;
+    [Tooltip("Time in seconds after gaining control before the slime can jump again")]
+    [Range(0, 2)][SerializeField] private float _jumpCooldownAfterControlGain = 1f;
     [Range(0, 5)][SerializeField] private float _rotateSpeed = 1f;
     private Vector3 _startPos;
     Vector3 lookDir;
-    private bool _canJump = true;
-    private bool _canRotate = false;
-    private bool _controlsSelf = true; // Whether the slime is in control if it's own movement and not by the physics system
-    private int _controlFrames; // Amount of frames the slime should be in control
+    [SerializeField] private bool _canJump = true;
+    [SerializeField] private bool _canRotate = false;
+    [SerializeField] private bool _controlsSelf = true; // Whether the slime is in control if it's own movement and not by the physics system
+    [SerializeField] private int _controlFrames; // Amount of frames the slime should be in control
     [SerializeField] private int _controlFramesRequired = 10; // Amount of frames required to be in control
     private Coroutine _jumpCoroutine;
-
+    private Coroutine _jumpResetCoroutine;
     private Coroutine _damageCoroutine;
 
     [Header("Events")]
@@ -53,13 +56,12 @@ public class Slime : Enemy
 
     void FixedUpdate()
     {
-        if (!_controlsSelf && _rb.linearVelocity.magnitude < 0.1f)
+        if (!_controlsSelf && _rb.linearVelocity.magnitude < _controlFrameAmount)
         {
             _controlFrames++;
             if (_controlFrames >= _controlFramesRequired)
             {
-                _controlsSelf = true;
-                _controlFrames = 0;
+                ToControl();
             }
             return;
         }
@@ -69,12 +71,10 @@ public class Slime : Enemy
             return;
         }
 
-        // _rb.constraints = RigidbodyConstraints.None;
-
         switch (alertState)
         {
             case AlertState.Idle:
-                return;
+                break;
             case AlertState.ToPlayer:
                 if (_canJump)
                     ToPlayer();
@@ -87,37 +87,32 @@ public class Slime : Enemy
 
         if (Vector3.Distance(transform.position, _startPos) < _idleDistance)
             alertState = AlertState.Idle;
+        else
+            alertState = AlertState.ToOrigin;
     }
 
     #region Jumping
     void ToOrigin()
     {
         _canJump = false;
-        _rb.AddForce(
-        (Vector3.up * _jumpHeight) + (_startPos - transform.position).normalized * _jumpForce,
-            ForceMode.Impulse
-        );
-        _jumpCoroutine = StartCoroutine(JumpCooldown());
         DirectionToTarget(_startPos);
         onJump.Invoke();
+        StartCoroutine(Jump());
     }
 
     void ToPlayer()
     {
         _canJump = false;
+        DirectionToTarget(_player.position);
         onJump.Invoke();
         StartCoroutine(Jump());
     }
 
     private IEnumerator Jump()
     {
-        DirectionToTarget(_player.position);
         _canRotate = true;
         yield return new WaitForSeconds(.9f);
-        _rb.AddForce(
-            (Vector3.up * _jumpHeight) + lookDir.normalized * _jumpForce,
-            ForceMode.Impulse
-        );
+        _rb.AddForce((Vector3.up * _jumpHeight) + lookDir.normalized * _jumpForce, ForceMode.Impulse);
         _jumpCoroutine = StartCoroutine(JumpCooldown());
     }
     private IEnumerator JumpCooldown()
@@ -169,7 +164,6 @@ public class Slime : Enemy
     {
         while (true)
         {
-            Debug.Log("testghuwieal");
             Health playerHealth = collision.gameObject.GetComponent<Health>();
             if (playerHealth != null)
             {
@@ -183,12 +177,34 @@ public class Slime : Enemy
     {
         _controlsSelf = true;
         _controlFrames = 0;
-        _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        DirectionToTarget(_player.position);
+        _canRotate = true;
+        _jumpResetCoroutine = StartCoroutine(JumpAfterControl());
+        _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    private void LoseControl()
+    public void LoseControl()
     {
         _controlsSelf = false;
-        _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
+        _canJump = false;
+        _canRotate = false;
+        if (_jumpCoroutine != null)
+        {
+            StopCoroutine(_jumpCoroutine);
+            _jumpCoroutine = null;
+        }
+        if (_jumpResetCoroutine != null)
+        {
+            StopCoroutine(_jumpResetCoroutine);
+            _jumpResetCoroutine = null;
+        }
+        _rb.constraints = RigidbodyConstraints.None;
+    }
+
+    private IEnumerator JumpAfterControl()
+    {
+        yield return new WaitForSeconds(_jumpCooldownAfterControlGain);
+        _canJump = true;
+        _jumpResetCoroutine = null;
     }
 }
