@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 
 public class GhostHead : MonoBehaviour
@@ -7,7 +8,9 @@ public class GhostHead : MonoBehaviour
     [SerializeField] private Transform _ghost;
 
     [Header("Settings")]
-    [SerializeField] private float _returnSpeed = 5f;
+    [SerializeField] private float _returnSpeed = 25f;
+    [ReadOnly][SerializeField] private float _returnMult = 0f;
+    [Tooltip("The return speed multiplier increase each FixedUpdate tick. Return multiplier caps at 1x")][SerializeField] private float _returnMultOnFixedUpdate = 0.025f;
 
     private bool _hitPlayer;
 
@@ -15,11 +18,18 @@ public class GhostHead : MonoBehaviour
     {
         rb.linearVelocity = Vector3.zero;
         _hitPlayer = false;
+        _returnMult = 0f;
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce((_ghost.position - transform.position) * _returnSpeed, ForceMode.Acceleration);
+        if (_returnMult < 1f)
+        {
+            _returnMult += _returnMultOnFixedUpdate;
+            if (_returnMult > 1f) _returnMult = 1f;
+        }
+
+        rb.AddForce((_ghost.position - transform.position).normalized * _returnSpeed * _returnMult, ForceMode.Acceleration);
     }
 
     private void OnTriggerEnter(Collider other)

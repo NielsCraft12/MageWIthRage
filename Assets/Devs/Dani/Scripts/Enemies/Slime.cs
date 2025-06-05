@@ -44,6 +44,11 @@ public class Slime : Enemy
         _startPos = transform.position;
     }
 
+    void OnEnable()
+    {
+        _canJump = true;
+    }
+
     void Update()
     {
         if (_canRotate && lookDir != transform.eulerAngles)

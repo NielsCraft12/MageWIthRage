@@ -4,14 +4,16 @@ using UnityEngine;
 public class Ghost : Enemy
 {
     [Header("Dependencies")]
-    [SerializeField] GameObject _head;
-    [SerializeField] GhostHead _ghostHead;
+    [SerializeField] private GameObject _head;
+    [SerializeField] private GhostHead _ghostHead;
     [SerializeField] private Transform _player;
 
     [Header("Settings")]
-    [SerializeField] float _throwVelocity = 5f;
-    [SerializeField] float _throwCooldown = 2f;
-    [SerializeField] float _throwMercyTime = 0.5f;
+    [SerializeField] private float _throwVelocity = 5f;
+    [SerializeField] private float _throwCooldown = 2f;
+    [SerializeField] private float _throwMercyTime = 0.5f;
+    [SerializeField] private float _maxDistanceMult = 2f;
+    [SerializeField] private float _minDistanceMult = 1f;
 
     private bool _canThrow = true;
     private bool _canRetrieve = false;
@@ -33,11 +35,14 @@ public class Ghost : Enemy
 
     void ThrowGhostHead()
     {
+        float distanceToPlayer = Vector3.Distance(_player.position, transform.position) / 7f;
+        distanceToPlayer = Mathf.Clamp(distanceToPlayer, _minDistanceMult, _maxDistanceMult);
+        Debug.Log(distanceToPlayer);
         _canThrow = false;
         _canRetrieve = false;
         _head.SetActive(true);
         _head.transform.position = transform.position;
-        _ghostHead.rb.linearVelocity = (_player.position - transform.position).normalized * _throwVelocity;
+        _ghostHead.rb.linearVelocity = (_player.position - transform.position).normalized * distanceToPlayer * _throwVelocity;
         StartCoroutine(MercyTime());
     }
 
