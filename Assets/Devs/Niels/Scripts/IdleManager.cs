@@ -9,11 +9,19 @@ public class IdleManager : MonoBehaviour
     PlayerState playerState;
 
     [SerializeField]
+    PlayerActionsnput playerActionsInput;
+
+    [SerializeField]
     float waittime = 0.85f;
 
     float idleIndex = 0f;
 
     bool isSitting = true;
+
+    [SerializeField]
+    BoxCollider wandCollider;
+
+    bool isColliderEnabled = false;
 
     void Update()
     {
@@ -26,5 +34,16 @@ public class IdleManager : MonoBehaviour
         {
             isSitting = true;
         }
+    }
+
+    public void SetAttackPressedFalse()
+    {
+        playerActionsInput.AttackPressed = false;
+    }
+
+    public void ToggleCollider()
+    {
+        wandCollider.enabled = !wandCollider.enabled;
+        isColliderEnabled = wandCollider.enabled;
     }
 }

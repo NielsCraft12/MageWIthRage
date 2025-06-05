@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -24,6 +25,9 @@ public class PlayerAnimation : MonoBehaviour
     private static int isJumpingHash = Animator.StringToHash("IsJumping");
     private static int isFallingHash = Animator.StringToHash("IsFalling");
     private static int isAttackingHash = Animator.StringToHash("IsAttacking");
+    private static int isPlayingActionHash = Animator.StringToHash("IsplayingAction");
+
+    private int[] actionHashes;
 
     private Vector3 currentBlendInput = Vector3.zero;
 
@@ -33,6 +37,7 @@ public class PlayerAnimation : MonoBehaviour
         playerState = GetComponent<PlayerState>();
         playerController = GetComponent<PlayerCotroller>();
         playerActionsInput = GetComponent<PlayerActionsnput>();
+        actionHashes = new int[] { isAttackingHash };
     }
 
     private void Update()
@@ -48,6 +53,7 @@ public class PlayerAnimation : MonoBehaviour
         bool isJumping = playerState.CurrentPlayerMovementState == PlayerMovementState.Jumping;
         bool isFalling = playerState.CurrentPlayerMovementState == PlayerMovementState.Falling;
         bool isGrounded = playerState.InGroundState();
+        bool isPlayingAction = actionHashes.Any(hash => animator.GetBool(hash));
 
         Vector2 inputTarget = isSprinting
             ? playerLocalMotoinInput.MovementInput * 1.5f
@@ -61,8 +67,10 @@ public class PlayerAnimation : MonoBehaviour
 
         animator.SetBool(isGroundedHash, isGrounded);
         animator.SetBool(isJumpingHash, isJumping);
-        animator.SetBool(isAttackingHash, playerActionsInput.AttackPressed);
         animator.SetBool(isFallingHash, isFalling);
+        animator.SetBool(isAttackingHash, playerActionsInput.AttackPressed);
+        animator.SetBool(isPlayingActionHash, isPlayingAction);
+
         animator.SetFloat(inputXHash, currentBlendInput.x);
         animator.SetFloat(inputYHash, currentBlendInput.y);
         animator.SetFloat(inputMagnetugeHash, currentBlendInput.magnitude);

@@ -9,18 +9,30 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
 
     [Header("Dependencies")]
-    [SerializeField] private GameManager _gameManager;
-    [SerializeField] private LevelTransition _levelTransition;
+    [SerializeField]
+    private GameManager _gameManager;
+
+    [SerializeField]
+    private LevelTransition _levelTransition;
 
     [Header("Game Settings")]
-    [SerializeField] private float _levelTransitionDelay = 1f;
-    [HideInInspector] public bool newGamePlus = false;
-    [HideInInspector] public int currentLevel = 1;
-    [HideInInspector] public int currentCheckpoint = 0;
-    [HideInInspector] public int abilitiesUnlocked = 0;
+    [SerializeField]
+    private float _levelTransitionDelay = 1f;
 
-    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE. Example: 'Level1'")] public List<string> levels = new List<string>();
-    [SerializeField] private string scenePath = "Assets/Scenes/";
+    [HideInInspector]
+    public bool newGamePlus = false;
+    public int currentLevel = 1;
+
+    [HideInInspector]
+    public int currentCheckpoint = 0;
+
+    public int abilitiesUnlocked = 0;
+
+    [Tooltip("Fill in the exact scene names in order. CASE SENSITIVE. Example: 'Level1'")]
+    public List<string> levels = new List<string>();
+
+    [SerializeField]
+    private string scenePath = "Assets/Scenes/";
 
     private void Awake()
     {
@@ -89,7 +101,9 @@ public class LevelManager : MonoBehaviour
     private IEnumerator SceneLoad()
     {
         _levelTransition.FadeIn();
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scenePath + levels[currentLevel - 1]);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(
+            scenePath + levels[currentLevel - 1]
+        );
 
         asyncLoad.allowSceneActivation = false; // Prevent automatic activation
 
@@ -100,7 +114,6 @@ public class LevelManager : MonoBehaviour
 
         // Allow scene activation after the delay
         asyncLoad.allowSceneActivation = true;
-
 
         while (!asyncLoad.isDone)
         {

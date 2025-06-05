@@ -17,6 +17,7 @@ public class PlayerCotroller : MonoBehaviour
     public float sprintAcceleration = 0.5f;
     public float SprintSpeed = 7f;
     public float drag = 0.1f;
+    public float inAirDrag = 0.1f;
     public float gravity = 25f;
     public float jumpSpeed = 1f;
     public float movingThreshold = 0.01f;
@@ -116,15 +117,23 @@ public class PlayerCotroller : MonoBehaviour
             + camaraForwardXZ * playerLocalMotoinInput.MovementInput.y;
 
         Vector3 movementDelta = moveDirection * lateralAcceleration * Time.deltaTime;
-        Vector3 newVelocity = characterController.velocity + movementDelta;
+        Vector3 newVelocity;
 
-        Vector3 currentDrag = newVelocity.normalized * drag * Time.deltaTime;
-        newVelocity =
-            (newVelocity.magnitude > drag * Time.deltaTime)
-                ? newVelocity - currentDrag
-                : Vector3.zero;
+        // If grounded, set velocity directly to movement input (no sliding)
+        if (isGrounded)
+        {
+            newVelocity = moveDirection * clampLateralMagnatude;
+        }
+        else
+        {
+            // In air, keep previous velocity and add movement delta (optional: can be more restrictive)
+            newVelocity = characterController.velocity + movementDelta;
+            newVelocity = Vector3.ClampMagnitude(
+                new Vector3(newVelocity.x, 0f, newVelocity.z),
+                clampLateralMagnatude
+            );
+        }
 
-        newVelocity = Vector3.ClampMagnitude(newVelocity, clampLateralMagnatude);
         newVelocity.y = vericleVelocity;
         characterController.Move(newVelocity * Time.deltaTime);
     }

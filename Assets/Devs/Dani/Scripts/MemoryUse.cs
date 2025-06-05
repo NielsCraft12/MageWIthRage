@@ -20,7 +20,7 @@ public class MemoryUse : MonoBehaviour
         // _playerInput.actions["Interact"].performed += ctx => UseNewestMemory();
     }
 
-    public void UseNewestMemory(InputAction.CallbackContext context)
+    public void UseNewestMemory()
     {
         if (memoryList.Count > 0)
         {

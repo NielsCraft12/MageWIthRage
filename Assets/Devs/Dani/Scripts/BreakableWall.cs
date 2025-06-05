@@ -9,7 +9,7 @@ public class BreakableWall : MonoBehaviour
     public void Break()
     {
         onBreak.Invoke();
-        BreakWall();
+        StartCoroutine(BreakWall());
     }
 
     private IEnumerator BreakWall()
