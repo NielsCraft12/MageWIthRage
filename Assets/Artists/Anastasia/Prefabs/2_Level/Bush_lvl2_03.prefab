@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bush_lvl2_03
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 55e8a3da1a7fbc54ea1f21f55bab3c6d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
