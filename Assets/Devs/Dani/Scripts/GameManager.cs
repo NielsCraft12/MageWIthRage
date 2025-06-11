@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         currentCheckpoint = LevelManager.instance.currentCheckpoint;
         if (currentCheckpoint != 0)
         {
-            player.transform.position = checkpoints[currentCheckpoint - 1].position;
+            player.transform.position = checkpoints[currentCheckpoint - 1].GetComponent<Checkpoint>().spawnPoint.position;
         }
     }
 }

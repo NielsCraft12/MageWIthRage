@@ -8531,10 +8531,6 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 572982332}
-    - target: {fileID: 2923969249587413364, guid: 4d62a4506421bb940974c710055015fa, type: 3}
-      propertyPath: checkpointIndex
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3328879766272995540, guid: 4d62a4506421bb940974c710055015fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23
@@ -8574,10 +8570,6 @@ PrefabInstance:
     - target: {fileID: 3328879766272995540, guid: 4d62a4506421bb940974c710055015fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6714327811313137587, guid: 4d62a4506421bb940974c710055015fa, type: 3}
-      propertyPath: m_Size.z
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8088185218471879607, guid: 4d62a4506421bb940974c710055015fa, type: 3}
       propertyPath: m_Name

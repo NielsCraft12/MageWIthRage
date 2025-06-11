@@ -6,6 +6,8 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [Tooltip("Starts at 1, 0 is ignored")][SerializeField] private int checkpointIndex;
 
+    public Transform spawnPoint;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.name == "Player" && gameManager.currentCheckpoint < checkpointIndex)
