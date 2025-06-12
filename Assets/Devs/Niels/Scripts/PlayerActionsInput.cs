@@ -35,14 +35,14 @@ public class PlayerActionsnput : MonoBehaviour, PlayerControls.IActionsActions
 
     private void Update()
     {
-        if (
-            playerLocalMotoinInput.MovementInput != Vector2.zero
-            || playerState.CurrentPlayerMovementState == PlayerMovementState.Jumping
-            || playerState.CurrentPlayerMovementState == PlayerMovementState.Falling
-        )
-        {
-            AttackPressed = false; // Reset attack pressed if player is moving or jumping
-        }
+        // if (
+        //     playerLocalMotoinInput.MovementInput != Vector2.zero
+        //     || playerState.CurrentPlayerMovementState == PlayerMovementState.Jumping
+        //     || playerState.CurrentPlayerMovementState == PlayerMovementState.Falling
+        // )
+        // {
+        //     AttackPressed = false; // Reset attack pressed if player is moving or jumping
+        // }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -58,6 +58,13 @@ public class PlayerActionsnput : MonoBehaviour, PlayerControls.IActionsActions
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        memoryUse.UseNewestMemory();
+        if (memoryUse != null)
+        {
+            memoryUse.UseNewestMemory();
+        }
+        else
+        {
+            Debug.LogWarning("MemoryUse component not found on this GameObject!");
+        }
     }
 }
