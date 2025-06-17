@@ -25,7 +25,7 @@ public class Slime : Enemy
     [Range(0, 2)][SerializeField] private float _jumpCooldownAfterControlGain = 1f;
     [Range(0, 5)][SerializeField] private float _rotateSpeed = 1f;
     private Vector3 _startPos;
-    Vector3 lookDir;
+    private Vector3 lookDir;
     [SerializeField] private bool _canJump = true;
     [SerializeField] private bool _canRotate = false;
     [SerializeField] private bool _controlsSelf = true; // Whether the slime is in control if it's own movement and not by the physics system
