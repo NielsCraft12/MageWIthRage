@@ -38,7 +38,14 @@ public class IdleManager : MonoBehaviour
 
     public void SetAttackPressedFalse()
     {
-        playerActionsInput.AttackPressed = false;
+        if (playerActionsInput.attackActive == 0)
+        {
+            playerActionsInput.BonkLvl1Pressed = false;
+        }
+        else if (playerActionsInput.attackActive == 1)
+        {
+            playerActionsInput.BonkPressed = false;
+        }
     }
 
     public void ToggleCollider()

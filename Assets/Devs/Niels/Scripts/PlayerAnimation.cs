@@ -11,7 +11,6 @@ public class PlayerAnimation : MonoBehaviour
     PlayerState playerState;
     PlayerCotroller playerController;
 
-    [SerializeField]
     private bool IdleOnce = false;
 
     private PlayerLocalmotoininput playerLocalMotoinInput;
@@ -20,11 +19,14 @@ public class PlayerAnimation : MonoBehaviour
     private static int inputXHash = Animator.StringToHash("InputX");
     private static int inputYHash = Animator.StringToHash("InputY");
     private static int inputMagnetugeHash = Animator.StringToHash("InputMagnitude");
+
+    [HideInInspector]
     public int idleHash = Animator.StringToHash("Idle");
     private static int isGroundedHash = Animator.StringToHash("IsGrounded");
     private static int isJumpingHash = Animator.StringToHash("IsJumping");
     private static int isFallingHash = Animator.StringToHash("IsFalling");
-    private static int isAttackingHash = Animator.StringToHash("IsAttacking");
+    private static int isBonkingHashLvl1 = Animator.StringToHash("IsBongingLvl1");
+    private static int isBonkingHash = Animator.StringToHash("IsBonking");
     private static int isPlayingActionHash = Animator.StringToHash("IsplayingAction");
 
     private int[] actionHashes;
@@ -37,7 +39,7 @@ public class PlayerAnimation : MonoBehaviour
         playerState = GetComponent<PlayerState>();
         playerController = GetComponent<PlayerCotroller>();
         playerActionsInput = GetComponent<PlayerActionsnput>();
-        actionHashes = new int[] { isAttackingHash };
+        actionHashes = new int[] { isBonkingHashLvl1, isBonkingHash };
     }
 
     private void Update()
@@ -68,7 +70,8 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool(isGroundedHash, isGrounded);
         animator.SetBool(isJumpingHash, isJumping);
         animator.SetBool(isFallingHash, isFalling);
-        animator.SetBool(isAttackingHash, playerActionsInput.AttackPressed);
+        animator.SetBool(isBonkingHash, playerActionsInput.BonkPressed);
+        animator.SetBool(isBonkingHashLvl1, playerActionsInput.BonkLvl1Pressed);
         animator.SetBool(isPlayingActionHash, isPlayingAction);
 
         animator.SetFloat(inputXHash, currentBlendInput.x);

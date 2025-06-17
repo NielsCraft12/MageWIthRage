@@ -7,7 +7,9 @@ public class PlayerActionsnput : MonoBehaviour, PlayerControls.IActionsActions
     private PlayerLocalmotoininput playerLocalMotoinInput;
     private PlayerState playerState;
     public PlayerControls PlayerControls { get; private set; }
-    public bool AttackPressed { get; set; }
+    public bool BonkPressed { get; set; }
+    public bool BonkLvl1Pressed { get; set; }
+    public int attackActive;
 
     MemoryUse memoryUse;
 
@@ -49,11 +51,19 @@ public class PlayerActionsnput : MonoBehaviour, PlayerControls.IActionsActions
     {
         if (LevelManager.instance.abilitiesUnlocked < 3)
         {
-            return; // Prevent jumping if the ability is not unlocked
+            return; // Prevent attacking if the ability is not unlocked
         }
         if (!context.performed)
             return;
-        AttackPressed = true;
+
+        if (attackActive == 0)
+        {
+            BonkLvl1Pressed = true;
+        }
+        else if (attackActive == 1)
+        {
+            BonkPressed = true;
+        }
     }
 
     public void OnInteract(InputAction.CallbackContext context)
