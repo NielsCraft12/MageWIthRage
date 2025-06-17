@@ -54,7 +54,7 @@ public class Attack2 : MonoBehaviour
 
         if (other.gameObject.CompareTag("Breakable"))
         {
-            Debug.Log("Breakable object hit by attack");
+            //Debug.Log("Breakable object hit by attack");
             BreakableWall breakable = other.gameObject.GetComponent<BreakableWall>();
             if (breakable != null)
             {
