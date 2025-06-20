@@ -21,7 +21,24 @@ public class IdleManager : MonoBehaviour
     [SerializeField]
     BoxCollider wandCollider;
 
+    [SerializeField]
+    GameObject backWand;
+
+    [SerializeField]
+    GameObject handWandCollider;
+
+    [SerializeField]
+    Attack2 attack2;
+
     bool isColliderEnabled = false;
+
+    void Start()
+    {
+        // Ensure attack collider starts disabled to prevent accidental enemy deaths
+        attack2.enabled = false;
+        wandCollider.enabled = false;
+        isColliderEnabled = false;
+    }
 
     void Update()
     {
@@ -33,6 +50,28 @@ public class IdleManager : MonoBehaviour
         if (playerState.CurrentPlayerMovementState != PlayerMovementState.Idling)
         {
             isSitting = true;
+        }
+
+        if (
+            playerState.CurrentPlayerMovementState == PlayerMovementState.Running
+            || playerState.CurrentPlayerMovementState == PlayerMovementState.Walking
+            || playerState.CurrentPlayerMovementState == PlayerMovementState.Sprinting
+        )
+        {
+            backWand.SetActive(false);
+            handWandCollider.SetActive(true);
+        }
+
+        // Automatically disable attack collider when not attacking to prevent accidental damage
+        if (
+            isColliderEnabled
+            && !playerActionsInput.BonkPressed
+            && !playerActionsInput.BonkLvl1Pressed
+        )
+        {
+            attack2.enabled = false;
+            wandCollider.enabled = false;
+            isColliderEnabled = false;
         }
     }
 
@@ -50,7 +89,18 @@ public class IdleManager : MonoBehaviour
 
     public void ToggleCollider()
     {
-        wandCollider.enabled = !wandCollider.enabled;
+        attack2.enabled = !isColliderEnabled;
+        wandCollider.enabled = !isColliderEnabled;
         isColliderEnabled = wandCollider.enabled;
+    }
+
+    public void ToggleBackwand()
+    {
+        if (playerState.CurrentPlayerMovementState == PlayerMovementState.Idling)
+        {
+            wandCollider.enabled = false;
+            backWand.SetActive(!backWand.activeSelf);
+            handWandCollider.SetActive(!handWandCollider.activeSelf);
+        }
     }
 }
