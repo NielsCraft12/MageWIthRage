@@ -9619,6 +9619,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wizardghost
       objectReference: {fileID: 0}
+    - target: {fileID: 2775932798559617040, guid: 27d52a3a7abcef34293788bf56662993, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 75c154112c528e1449ef41490edddceb, type: 2}
     - target: {fileID: 4994518876852582223, guid: 27d52a3a7abcef34293788bf56662993, type: 3}
       propertyPath: m_LocalPosition.x
       value: 169.48105
