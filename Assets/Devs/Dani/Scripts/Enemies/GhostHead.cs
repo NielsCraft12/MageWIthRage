@@ -6,6 +6,8 @@ public class GhostHead : MonoBehaviour
     [Header("Dependencies")]
     public Rigidbody rb;
     [SerializeField] private Transform _ghost;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private Transform _model;
 
     [Header("Settings")]
     [SerializeField] private float _returnSpeed = 25f;
@@ -19,6 +21,15 @@ public class GhostHead : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         _hitPlayer = false;
         _returnMult = 0f;
+    }
+
+    private void Update()
+    {
+        _model.localRotation = Quaternion.Slerp(
+            _model.localRotation,
+            Quaternion.LookRotation((rb.linearVelocity).normalized),
+            Time.deltaTime * 10f
+        );
     }
 
     private void FixedUpdate()
