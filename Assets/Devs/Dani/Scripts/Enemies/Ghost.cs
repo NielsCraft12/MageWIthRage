@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,10 +8,14 @@ public class Ghost : Enemy
 {
     [Header("Dependencies")]
     [SerializeField] private GameObject _head;
+    [SerializeField] private GameObject _cosmeticGhostHead;
     [SerializeField] private GhostHead _ghostHead;
+    [SerializeField] private Transform _ghostHand;
     [SerializeField] private Transform _player;
     [SerializeField] private NavMeshAgent _navMeshAgent;
-    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private Animator _bodyAnimator;
+    [SerializeField] private Animator _headAnimator;
     [SerializeField] private Transform[] _patrolPoints;
 
     [Header("Settings")]
@@ -22,6 +27,9 @@ public class Ghost : Enemy
     [Range(0, 5)][SerializeField] private float _rotateSpeed = 1f;
 
     [SerializeField][ReadOnly] private int _currentPatrolPoint = 0;
+
+    [SerializeField] private float _headPickupTime = 0.5f;
+    [SerializeField] private float _headThrowTime = 0.5f;
     private Vector3 lookDir;
     private List<Vector3> _patrolVectors;
     private bool _canThrow = true;
@@ -38,6 +46,7 @@ public class Ghost : Enemy
             Debug.Log("Patrol Vector " + i + ": " + _patrolVectors[i]);
         }
         _navMeshAgent.SetDestination(_patrolVectors[_currentPatrolPoint]);
+        _headAnimator.SetTrigger("Walk");
     }
 
     void Update()
@@ -81,7 +90,7 @@ public class Ghost : Enemy
     {
         DirectionToTarget(_player.position);
         if (_canThrow)
-            ThrowGhostHead();
+            StartCoroutine(HeadPickupToThrow());
         if (_navMeshEnabled)
         {
             TogglePhysics();
@@ -112,36 +121,56 @@ public class Ghost : Enemy
         if (_navMeshAgent.enabled)
             velocity = _navMeshAgent.velocity;
         else
-            velocity = _rb.linearVelocity;
+            velocity = _rigidbody.linearVelocity;
 
         _navMeshAgent.enabled = !_navMeshAgent.enabled;
         _navMeshEnabled = !_navMeshEnabled;
         if (_navMeshAgent.enabled) _navMeshAgent.SetDestination(_patrolVectors[_currentPatrolPoint]);
-        _rb.isKinematic = !_rb.isKinematic;
+        _rigidbody.isKinematic = !_rigidbody.isKinematic;
 
-        if (_rb.isKinematic)
+        if (_rigidbody.isKinematic)
             _navMeshAgent.velocity = velocity;
         else
-            _rb.linearVelocity = velocity;
+            _rigidbody.linearVelocity = velocity;
     }
 
+    IEnumerator HeadPickupToThrow()
+    {
+        _ghostHead.rb.isKinematic = true;
+        _bodyAnimator.SetTrigger("Attack");
+        _canThrow = false;
+        _canRetrieve = false;
+        yield return new WaitForSeconds(_headPickupTime);
+        _cosmeticGhostHead.SetActive(false);
+        _head.transform.parent = _ghostHand;
+        _head.transform.position = _ghostHand.position;
+        _head.SetActive(true);
+        _headAnimator.SetTrigger("Throw");
+        yield return new WaitForSeconds(_headThrowTime);
+        _head.transform.parent = null;
+        _ghostHead.rb.isKinematic = false;
+        ThrowGhostHead();
+    }
 
     void ThrowGhostHead()
     {
         float distanceToPlayer = Vector3.Distance(_player.position, transform.position) / 7f;
         distanceToPlayer = Mathf.Clamp(distanceToPlayer, _minDistanceMult, _maxDistanceMult);
-        _canThrow = false;
-        _canRetrieve = false;
-        _head.SetActive(true);
-        _head.transform.position = transform.position;
         _ghostHead.rb.linearVelocity = (_player.position - transform.position).normalized * distanceToPlayer * _throwVelocity;
         StartCoroutine(MercyTime());
     }
 
-    void CollectGhostHead()
+    IEnumerator CollectGhostHead()
     {
-        _head.transform.position = transform.position;
+        Debug.Log("Ghost head collected!");
+        _ghostHead.rb.isKinematic = true;
+        _head.transform.parent = _ghostHand;
+        _head.transform.localPosition = Vector3.zero;
+        _bodyAnimator.SetTrigger("Catch");
+        yield return new WaitForSeconds(_throwCooldown);
         _head.SetActive(false);
+        _cosmeticGhostHead.SetActive(true);
+        _headAnimator.SetTrigger("Walk");
         StartCoroutine(ThrowCooldown());
     }
 
@@ -157,11 +186,11 @@ public class Ghost : Enemy
         _canRetrieve = true;
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (_canRetrieve && other.gameObject == _head)
         {
-            CollectGhostHead();
+            StartCoroutine(CollectGhostHead());
         }
     }
 }
