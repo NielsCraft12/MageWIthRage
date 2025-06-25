@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour
             newGamePlus = data.gameData.newGamePlus;
             currentLevel = data.gameData.currentLevel;
             currentCheckpoint = data.gameData.currentCheckpoint;
-            abilitiesUnlocked = data.gameData.abilitiesUnlocked;
+          //  abilitiesUnlocked = data.gameData.abilitiesUnlocked;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
