@@ -669,7 +669,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.0010000000474974514,
+    "m_Value": 0.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -2192,13 +2192,13 @@
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
     "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "overrideHLSLDeclaration": true,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.35056957602500918,
-        "g": 0.49373772740364077,
-        "b": 0.7358490228652954,
+        "r": 0.2414349466562271,
+        "g": 0.3294117748737335,
+        "b": 0.1764705926179886,
         "a": 1.0
     },
     "isMainColor": false,
@@ -2394,7 +2394,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 6.03000020980835,
+    "m_Value": 10.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -2679,9 +2679,9 @@
     "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.7971698045730591,
-        "g": 0.954874575138092,
-        "b": 1.0,
+        "r": 0.48235294222831728,
+        "g": 0.7450980544090271,
+        "b": 0.501960813999176,
         "a": 0.8235294222831726
     },
     "isMainColor": false,
@@ -2708,7 +2708,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 1.0,
+    "m_Value": 0.3499999940395355,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -3784,10 +3784,10 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.7594339847564697,
-        "g": 0.9739265441894531,
-        "b": 1.0,
-        "a": 0.32549020648002627
+        "r": 0.48235294222831728,
+        "g": 0.7450980544090271,
+        "b": 0.502355694770813,
+        "a": 0.3333333432674408
     },
     "isMainColor": false,
     "m_ColorMode": 0
