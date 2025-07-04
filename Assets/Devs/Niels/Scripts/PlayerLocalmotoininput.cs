@@ -35,9 +35,9 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (LevelManager.instance.abilitiesUnlocked < 1)
+        if (LevelManager.instance != null && LevelManager.instance.abilitiesUnlocked < 1)
         {
-            return; // Prevent jumping if the ability is not unlocked
+            return; // Prevent movement if the ability is not unlocked
         }
         MovementInput = context.ReadValue<Vector2>();
     }
@@ -61,7 +61,7 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (LevelManager.instance.abilitiesUnlocked < 2)
+        if (LevelManager.instance != null && LevelManager.instance.abilitiesUnlocked < 2)
         {
             return; // Prevent jumping if the ability is not unlocked
         }

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -19,17 +21,60 @@ public class Health : MonoBehaviour
     [SerializeField]
     protected float damageAmount = 10f; // Amount of damage taken from enemy collision
 
+    public Color flashColor = Color.red;
+    public float flashDuration = 0.1f;
+
+    private List<Renderer> renderers = new List<Renderer>();
+    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
+
+    // Public getters for debugging
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => maxHealth;
+
     private void Start()
     {
         currentHealth = maxHealth; // Initialize current health to maximum health
+
+        // Get all Renderer components in this object and its children
+        renderers.AddRange(GetComponentsInChildren<Renderer>());
+
+        // Store original colors
+        foreach (Renderer rend in renderers)
+        {
+            if (rend.material.HasProperty("_Color"))
+                originalColors[rend] = rend.material.color;
+        }
     }
 
     public void TakeDamage(float damage)
     {
+        Flash();
         currentHealth -= damage; // Reduce current health by damage amount
         if (currentHealth <= 0)
         {
             Die(); // Call the Die
+        }
+    }
+
+    public void Flash()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        foreach (Renderer rend in renderers)
+        {
+            if (rend.material.HasProperty("_Color"))
+                rend.material.color = flashColor;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        foreach (Renderer rend in renderers)
+        {
+            if (rend.material.HasProperty("_Color"))
+                rend.material.color = originalColors[rend];
         }
     }
 

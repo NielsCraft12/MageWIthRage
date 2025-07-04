@@ -27,17 +27,11 @@ public class IdleManager : MonoBehaviour
     [SerializeField]
     GameObject handWandCollider;
 
-    [SerializeField]
-    Attack2 attack2;
-
     bool isColliderEnabled = false;
 
     void Start()
     {
-        // Ensure attack collider starts disabled to prevent accidental enemy deaths
-        attack2.enabled = false;
-        wandCollider.enabled = false;
-        isColliderEnabled = false;
+        // IdleManager initialization - Attack2 manages its own state
     }
 
     void Update()
@@ -62,15 +56,17 @@ public class IdleManager : MonoBehaviour
             handWandCollider.SetActive(true);
         }
 
-        // Automatically disable attack collider when not attacking to prevent accidental damage
+        // Automatically disable old wand collider when not attacking to prevent accidental damage
+        // Keep Attack2 component enabled - it manages its own timing
         if (
             isColliderEnabled
             && !playerActionsInput.BonkPressed
             && !playerActionsInput.BonkLvl1Pressed
         )
         {
-            attack2.enabled = false;
-            wandCollider.enabled = false;
+            // Only disable the old wand collider, NOT the Attack2 component
+            if (wandCollider != null)
+                wandCollider.enabled = false;
             isColliderEnabled = false;
         }
     }
@@ -89,9 +85,12 @@ public class IdleManager : MonoBehaviour
 
     public void ToggleCollider()
     {
-        attack2.enabled = !isColliderEnabled;
-        wandCollider.enabled = !isColliderEnabled;
-        isColliderEnabled = wandCollider.enabled;
+        // Only toggle the old wand collider system, keep Attack2 always enabled
+        if (wandCollider != null)
+        {
+            wandCollider.enabled = !isColliderEnabled;
+            isColliderEnabled = wandCollider.enabled;
+        }
     }
 
     public void ToggleBackwand()
@@ -101,6 +100,32 @@ public class IdleManager : MonoBehaviour
             wandCollider.enabled = false;
             backWand.SetActive(!backWand.activeSelf);
             handWandCollider.SetActive(!handWandCollider.activeSelf);
+        }
+    }
+
+    /// <summary>
+    /// Called by Animation Event to trigger attack damage at precise timing
+    /// Add this method name to your attack animation events
+    /// </summary>
+    public void TriggerAttackDamage()
+    {
+        // Use the integrated attack system in PlayerActionsInput
+        if (playerActionsInput != null)
+        {
+            playerActionsInput.TriggerAttackDamage();
+        }
+    }
+
+    /// <summary>
+    /// Called by Animation Event when attack animation ends
+    /// Add this method name to your attack animation events
+    /// </summary>
+    public void EndAttack()
+    {
+        // Use the integrated attack system in PlayerActionsInput
+        if (playerActionsInput != null)
+        {
+            playerActionsInput.EndAttack();
         }
     }
 }
