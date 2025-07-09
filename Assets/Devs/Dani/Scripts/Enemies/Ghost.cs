@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,14 +9,12 @@ public class Ghost : Enemy
 {
     [Header("Dependencies")]
     [SerializeField] private GameObject _head;
-    [SerializeField] private GameObject _cosmeticGhostHead;
     [SerializeField] private GhostHead _ghostHead;
     [SerializeField] private Transform _ghostHand;
     [SerializeField] private Transform _player;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Animator _bodyAnimator;
-    [SerializeField] private Animator _headAnimator;
     [SerializeField] private Transform[] _patrolPoints;
 
     [Header("Settings")]
@@ -46,7 +45,6 @@ public class Ghost : Enemy
             Debug.Log("Patrol Vector " + i + ": " + _patrolVectors[i]);
         }
         _navMeshAgent.SetDestination(_patrolVectors[_currentPatrolPoint]);
-        _headAnimator.SetTrigger("Walk");
     }
 
     void Update()
@@ -136,19 +134,14 @@ public class Ghost : Enemy
 
     IEnumerator HeadPickupToThrow()
     {
-        _ghostHead.rb.isKinematic = true;
         _bodyAnimator.SetTrigger("Attack");
         _canThrow = false;
         _canRetrieve = false;
         yield return new WaitForSeconds(_headPickupTime);
-        _cosmeticGhostHead.SetActive(false);
-        _head.transform.parent = _ghostHand;
         _head.transform.position = _ghostHand.position;
-        _head.SetActive(true);
-        _headAnimator.SetTrigger("Throw");
+        // _headAnimator.SetTrigger("Throw");
         yield return new WaitForSeconds(_headThrowTime);
-        _head.transform.parent = null;
-        _ghostHead.rb.isKinematic = false;
+        _head.SetActive(true);
         ThrowGhostHead();
     }
 
@@ -157,20 +150,16 @@ public class Ghost : Enemy
         float distanceToPlayer = Vector3.Distance(_player.position, transform.position) / 7f;
         distanceToPlayer = Mathf.Clamp(distanceToPlayer, _minDistanceMult, _maxDistanceMult);
         _ghostHead.rb.linearVelocity = (_player.position - transform.position).normalized * distanceToPlayer * _throwVelocity;
+        _ghostHead.model.localRotation = Quaternion.LookRotation((_ghostHead.rb.linearVelocity).normalized);
         StartCoroutine(MercyTime());
     }
 
     IEnumerator CollectGhostHead()
     {
         Debug.Log("Ghost head collected!");
-        _ghostHead.rb.isKinematic = true;
-        _head.transform.parent = _ghostHand;
-        _head.transform.localPosition = Vector3.zero;
+        _head.SetActive(false);
         _bodyAnimator.SetTrigger("Catch");
         yield return new WaitForSeconds(_throwCooldown);
-        _head.SetActive(false);
-        _cosmeticGhostHead.SetActive(true);
-        _headAnimator.SetTrigger("Walk");
         StartCoroutine(ThrowCooldown());
     }
 

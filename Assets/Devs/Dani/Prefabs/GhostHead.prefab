@@ -50,7 +50,7 @@ MonoBehaviour:
   rb: {fileID: 4336603002930748848}
   _ghost: {fileID: 0}
   _animator: {fileID: 0}
-  _model: {fileID: 1725798718975505706}
+  model: {fileID: 1120549957597274752}
   _returnSpeed: 35
   _returnMult: 0
   _returnMultOnFixedUpdate: 0.02
@@ -156,19 +156,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -176,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -252,7 +252,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2307450009238024623}
+      addedObject: {fileID: 8436310770315856643}
   m_SourcePrefab: {fileID: 100100000, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
 --- !u!4 &1725798718975505706 stripped
 Transform:
@@ -264,7 +264,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bd0ce55f1c8ab704e81aa1eb66bba8d9, type: 3}
   m_PrefabInstance: {fileID: 1187258943251321537}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2307450009238024623
+--- !u!95 &8436310770315856643
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0

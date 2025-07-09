@@ -7,7 +7,7 @@ public class GhostHead : MonoBehaviour
     public Rigidbody rb;
     [SerializeField] private Transform _ghost;
     [SerializeField] private Animator _animator;
-    [SerializeField] private Transform _model;
+    public Transform model;
 
     [Header("Settings")]
     [SerializeField] private float _returnSpeed = 25f;
@@ -15,6 +15,11 @@ public class GhostHead : MonoBehaviour
     [Tooltip("The return speed multiplier increase each FixedUpdate tick. Return multiplier caps at 1x")][SerializeField] private float _returnMultOnFixedUpdate = 0.025f;
 
     private bool _hitPlayer;
+
+    void Onable()
+    {
+        _animator.SetTrigger("Walk");
+    }
 
     void OnDisable()
     {
@@ -25,8 +30,8 @@ public class GhostHead : MonoBehaviour
 
     private void Update()
     {
-        _model.localRotation = Quaternion.Slerp(
-            _model.localRotation,
+        model.localRotation = Quaternion.Slerp(
+            model.localRotation,
             Quaternion.LookRotation((rb.linearVelocity).normalized),
             Time.deltaTime * 10f
         );
@@ -40,7 +45,7 @@ public class GhostHead : MonoBehaviour
             if (_returnMult > 1f) _returnMult = 1f;
         }
 
-        rb.AddForce((_ghost.position - transform.position).normalized * _returnSpeed * _returnMult, ForceMode.Acceleration);
+        rb.AddForce((_ghost.position + new Vector3(0, 1.5f, 0) - transform.position).normalized * _returnSpeed * _returnMult, ForceMode.Acceleration);
     }
 
     private void OnTriggerEnter(Collider other)
