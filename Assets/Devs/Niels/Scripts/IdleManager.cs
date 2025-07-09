@@ -81,6 +81,15 @@ public class IdleManager : MonoBehaviour
         {
             playerActionsInput.BonkPressed = false;
         }
+
+        if (playerActionsInput != null)
+        {
+            playerActionsInput.EndAttackFromIdleManager();
+        }
+        else
+        {
+            Debug.LogError("PlayerActionsInput not found in IdleManager!");
+        }
     }
 
     public void ToggleCollider()
@@ -117,15 +126,17 @@ public class IdleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Called by Animation Event when attack animation ends
-    /// Add this method name to your attack animation events
+    /// This method is called by animation event when attack animation ends
     /// </summary>
     public void EndAttack()
     {
-        // Use the integrated attack system in PlayerActionsInput
         if (playerActionsInput != null)
         {
-            playerActionsInput.EndAttack();
+            playerActionsInput.EndAttackFromIdleManager();
+        }
+        else
+        {
+            Debug.LogError("PlayerActionsInput not found in IdleManager!");
         }
     }
 }

@@ -12,6 +12,7 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
     public bool JumpPressed { get; private set; }
+    private bool isPaused = false;
 
     void OnEnable()
     {
@@ -44,6 +45,10 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        // Don't update look input when paused
+        if (isPaused)
+            return;
+
         LookInput = context.ReadValue<Vector2>();
     }
 
@@ -70,5 +75,13 @@ public class PlayerLocalmotoininput : MonoBehaviour, PlayerControls.IPlayerActio
             return;
         }
         JumpPressed = true;
+    }
+
+    public void SetPaused(bool paused)
+    {
+        isPaused = paused;
+        // Clear look input when paused
+        if (paused)
+            LookInput = Vector2.zero;
     }
 }

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1453984003073000688}
   - component: {fileID: 5604549251419142947}
   - component: {fileID: 7864395059552175386}
+  - component: {fileID: 8884388331769848018}
+  - component: {fileID: 517215510617106540}
   m_Layer: 6
   m_Name: Slime
   m_TagString: Untagged
@@ -29,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6276, y: 1.6276, z: 1.6276}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5866013720146591076}
@@ -133,6 +135,41 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 941a9db2888e88346ab4e2d37498abdc, type: 3}
+--- !u!114 &8884388331769848018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796064592009935147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2863fbe8aa3664ea20486a3b8bd0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3297491237496907215}
+  deathAnimationTrigger: death
+  maxHealth: 100
+  currentHealth: 0
+  damageAmount: 10
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.1
+--- !u!114 &517215510617106540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796064592009935147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b116b0419b44fb2468a98302fc1fa118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  attackCooldown: 3
+  slimeAnimator: {fileID: 3297491237496907215}
+  attackTrigger: attack
 --- !u!1 &6619129606013951687
 GameObject:
   m_ObjectHideFlags: 0

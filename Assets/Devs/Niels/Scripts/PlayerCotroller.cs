@@ -29,10 +29,12 @@ public class PlayerCotroller : MonoBehaviour
 
     private PlayerLocalmotoininput playerLocalMotoinInput;
     private PlayerState playerState;
+
     Vector2 cameraRotation = Vector2.zero;
     private Vector2 playerRotation = Vector2.zero;
 
     private float vericleVelocity = 0f;
+    private bool isPaused = false;
     #endregion
     #region Startup
     private void Awake()
@@ -143,6 +145,10 @@ public class PlayerCotroller : MonoBehaviour
 
     void LateUpdate()
     {
+        // Don't update camera rotation when paused
+        if (isPaused)
+            return;
+
         cameraRotation.x += lookSenseH * playerLocalMotoinInput.LookInput.x;
         cameraRotation.y = Mathf.Clamp(
             cameraRotation.y - lookSenseV * playerLocalMotoinInput.LookInput.y,
@@ -171,6 +177,11 @@ public class PlayerCotroller : MonoBehaviour
     private bool IsGrounded()
     {
         return characterController.isGrounded;
+    }
+
+    public void SetPaused(bool paused)
+    {
+        isPaused = paused;
     }
 
     #endregion

@@ -9,14 +9,14 @@ public class MemoryUse : MonoBehaviour
     private MemoryText _memoryText;
     public List<Memory> memoryList;
 
-    [SerializeField]
-    PlayerInput _playerInput;
+    // [SerializeField]
+    // PlayerInput _playerInput;
 
     private void Awake()
     {
         memoryList = new List<Memory>();
 
-        _playerInput = GetComponent<PlayerInput>();
+        // _playerInput = GetComponent<PlayerInput>();
         // _playerInput.actions["Interact"].performed += ctx => UseNewestMemory();
     }
 

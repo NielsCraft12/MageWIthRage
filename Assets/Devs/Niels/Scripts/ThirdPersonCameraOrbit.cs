@@ -11,6 +11,7 @@ public class ThirdPersonCameraOrbit : MonoBehaviour
     private Vector2 lookInput;
     private float yaw;
     private float pitch;
+    private bool isPaused = false;
 
     private PlayerControlls inputActions;
 
@@ -26,6 +27,10 @@ public class ThirdPersonCameraOrbit : MonoBehaviour
 
     void LateUpdate()
     {
+        // Don't update camera rotation when paused
+        if (isPaused)
+            return;
+
         yaw += lookInput.x * sensitivity.x;
         pitch -= lookInput.y * sensitivity.y;
         pitch = Mathf.Clamp(pitch, clampAngles.x, clampAngles.y);
@@ -37,5 +42,10 @@ public class ThirdPersonCameraOrbit : MonoBehaviour
         // Move the camera back
         cameraTransform.position = transform.position - transform.forward * distance;
         cameraTransform.LookAt(target);
+    }
+
+    public void SetPaused(bool paused)
+    {
+        isPaused = paused;
     }
 }

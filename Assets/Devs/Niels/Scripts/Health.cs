@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -21,11 +22,27 @@ public class Health : MonoBehaviour
     [SerializeField]
     protected float damageAmount = 10f; // Amount of damage taken from enemy collision
 
+    [Header("Health Regeneration")]
+    [SerializeField]
+    private float healthRegenRate = 5f; // Health points regenerated per second
+
+    [SerializeField]
+    private float regenDelay = 3f; // Delay before regeneration starts after taking damage
+
+    [SerializeField]
+    private bool canRegenerateHealth = true; // Toggle for health regeneration
+
+    private float timeSinceLastDamage = 0f; // Timer to track time since last damage
+    private Coroutine regenCoroutine; // Reference to the regeneration coroutine
+
     public Color flashColor = Color.red;
     public float flashDuration = 0.1f;
 
     private List<Renderer> renderers = new List<Renderer>();
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
+
+    [SerializeField]
+    private Slider healthSlider; // Reference to the UI Slider for health display
 
     // Public getters for debugging
     public float CurrentHealth => currentHealth;
@@ -50,10 +67,58 @@ public class Health : MonoBehaviour
     {
         Flash();
         currentHealth -= damage; // Reduce current health by damage amount
+        timeSinceLastDamage = 0f; // Reset the damage timer
+
         if (currentHealth <= 0)
         {
             Die(); // Call the Die
         }
+
+        if (healthSlider != null)
+        {
+            healthSlider.value = currentHealth / maxHealth; // Update health slider
+        }
+
+        // Stop regeneration if taking damage
+        if (regenCoroutine != null)
+        {
+            StopCoroutine(regenCoroutine);
+            regenCoroutine = null;
+        }
+    }
+
+    private void Update()
+    {
+        // Track time since last damage for regeneration delay
+        if (canRegenerateHealth && currentHealth < maxHealth)
+        {
+            timeSinceLastDamage += Time.deltaTime;
+
+            // Start regeneration if enough time has passed since last damage
+            if (timeSinceLastDamage >= regenDelay && regenCoroutine == null)
+            {
+                regenCoroutine = StartCoroutine(RegenerateHealth());
+            }
+        }
+    }
+
+    private IEnumerator RegenerateHealth()
+    {
+        while (currentHealth < maxHealth && timeSinceLastDamage >= regenDelay)
+        {
+            currentHealth += healthRegenRate * Time.deltaTime;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't exceed max
+
+            // Update health slider if available
+            if (healthSlider != null)
+            {
+                healthSlider.value = currentHealth / maxHealth;
+            }
+
+            yield return null; // Wait for next frame
+        }
+
+        regenCoroutine = null; // Reset coroutine reference
     }
 
     public void Flash()
