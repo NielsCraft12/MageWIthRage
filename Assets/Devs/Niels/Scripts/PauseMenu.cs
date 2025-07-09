@@ -147,9 +147,9 @@ public class PauseMenu : MonoBehaviour
         cinemachineInputProviders = inputProviders.ToArray();
 
         // Debug info
-        Debug.Log(
-            $"Auto-populated {cinemachineCameras.Length} Cinemachine cameras and {cinemachineInputProviders.Length} input providers"
-        );
+        // Debug.Log(
+        //     $"Auto-populated {cinemachineCameras.Length} Cinemachine cameras and {cinemachineInputProviders.Length} input providers"
+        // );
     }
 
     private void DisableMouseSensitivity()

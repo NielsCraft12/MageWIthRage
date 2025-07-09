@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Artists/Luka/Lvl1_Luka.unity
     guid: ca2e140135b96744c89ed7cfcf210c9b
+  - enabled: 1
+    path: Assets/Devs/Niels/Death.unity
+    guid: 888d9e1a9a0659c45bd110543abfef22
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 51034fedf2acb724c975ff971735f3b9, type: 3}
   m_UseUCBPForAssetBundles: 0

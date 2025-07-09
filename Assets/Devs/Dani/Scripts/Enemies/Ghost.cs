@@ -8,27 +8,59 @@ using UnityEngine.AI;
 public class Ghost : Enemy
 {
     [Header("Dependencies")]
-    [SerializeField] private GameObject _head;
-    [SerializeField] private GhostHead _ghostHead;
-    [SerializeField] private Transform _ghostHand;
-    [SerializeField] private Transform _player;
-    [SerializeField] private NavMeshAgent _navMeshAgent;
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private Animator _bodyAnimator;
-    [SerializeField] private Transform[] _patrolPoints;
+    [SerializeField]
+    private GameObject _head;
+
+    [SerializeField]
+    private GhostHead _ghostHead;
+
+    [SerializeField]
+    private Transform _ghostHand;
+
+    [SerializeField]
+    private Transform _player;
+
+    [SerializeField]
+    private NavMeshAgent _navMeshAgent;
+
+    [SerializeField]
+    private Rigidbody _rigidbody;
+
+    [SerializeField]
+    private Animator _bodyAnimator;
+
+    [SerializeField]
+    private Transform[] _patrolPoints;
 
     [Header("Settings")]
-    [SerializeField] private float _throwVelocity = 5f;
-    [SerializeField] private float _throwCooldown = 2f;
-    [SerializeField] private float _throwMercyTime = 0.5f;
-    [SerializeField] private float _maxDistanceMult = 2f;
-    [SerializeField] private float _minDistanceMult = 1f;
-    [Range(0, 5)][SerializeField] private float _rotateSpeed = 1f;
+    [SerializeField]
+    private float _throwVelocity = 5f;
 
-    [SerializeField][ReadOnly] private int _currentPatrolPoint = 0;
+    [SerializeField]
+    private float _throwCooldown = 2f;
 
-    [SerializeField] private float _headPickupTime = 0.5f;
-    [SerializeField] private float _headThrowTime = 0.5f;
+    [SerializeField]
+    private float _throwMercyTime = 0.5f;
+
+    [SerializeField]
+    private float _maxDistanceMult = 2f;
+
+    [SerializeField]
+    private float _minDistanceMult = 1f;
+
+    [Range(0, 5)]
+    [SerializeField]
+    private float _rotateSpeed = 1f;
+
+    [SerializeField]
+    [ReadOnly]
+    private int _currentPatrolPoint = 0;
+
+    [SerializeField]
+    private float _headPickupTime = 0.5f;
+
+    [SerializeField]
+    private float _headThrowTime = 0.5f;
     private Vector3 lookDir;
     private List<Vector3> _patrolVectors;
     private bool _canThrow = true;
@@ -42,7 +74,7 @@ public class Ghost : Enemy
         for (int i = 0; i < _patrolPoints.Length; i++)
         {
             _patrolVectors.Add(_patrolPoints[i].position);
-            Debug.Log("Patrol Vector " + i + ": " + _patrolVectors[i]);
+            //   Debug.Log("Patrol Vector " + i + ": " + _patrolVectors[i]);
         }
         _navMeshAgent.SetDestination(_patrolVectors[_currentPatrolPoint]);
     }
@@ -56,7 +88,6 @@ public class Ghost : Enemy
                 Time.deltaTime * _rotateSpeed
             );
     }
-
 
     void FixedUpdate()
     {
@@ -74,7 +105,10 @@ public class Ghost : Enemy
 
     void Idle()
     {
-        if (_IncreasePatrolPointCoroutine == null && Vector3.Distance(transform.position, _patrolVectors[_currentPatrolPoint]) < 1f)
+        if (
+            _IncreasePatrolPointCoroutine == null
+            && Vector3.Distance(transform.position, _patrolVectors[_currentPatrolPoint]) < 1f
+        )
         {
             _IncreasePatrolPointCoroutine = StartCoroutine(IncreasePatrolPoint());
         }
@@ -123,7 +157,8 @@ public class Ghost : Enemy
 
         _navMeshAgent.enabled = !_navMeshAgent.enabled;
         _navMeshEnabled = !_navMeshEnabled;
-        if (_navMeshAgent.enabled) _navMeshAgent.SetDestination(_patrolVectors[_currentPatrolPoint]);
+        if (_navMeshAgent.enabled)
+            _navMeshAgent.SetDestination(_patrolVectors[_currentPatrolPoint]);
         _rigidbody.isKinematic = !_rigidbody.isKinematic;
 
         if (_rigidbody.isKinematic)
@@ -149,14 +184,17 @@ public class Ghost : Enemy
     {
         float distanceToPlayer = Vector3.Distance(_player.position, transform.position) / 7f;
         distanceToPlayer = Mathf.Clamp(distanceToPlayer, _minDistanceMult, _maxDistanceMult);
-        _ghostHead.rb.linearVelocity = (_player.position - transform.position).normalized * distanceToPlayer * _throwVelocity;
-        _ghostHead.model.localRotation = Quaternion.LookRotation((_ghostHead.rb.linearVelocity).normalized);
+        _ghostHead.rb.linearVelocity =
+            (_player.position - transform.position).normalized * distanceToPlayer * _throwVelocity;
+        _ghostHead.model.localRotation = Quaternion.LookRotation(
+            (_ghostHead.rb.linearVelocity).normalized
+        );
         StartCoroutine(MercyTime());
     }
 
     IEnumerator CollectGhostHead()
     {
-        Debug.Log("Ghost head collected!");
+        //Debug.Log("Ghost head collected!");
         _head.SetActive(false);
         _bodyAnimator.SetTrigger("Catch");
         yield return new WaitForSeconds(_throwCooldown);

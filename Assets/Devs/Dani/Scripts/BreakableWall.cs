@@ -22,28 +22,28 @@ public class BreakableWall2 : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log(
-            $"BreakableWall2 {name} BEFORE damage - Health: {health}/{maxHealth}, Incoming damage: {damage}"
-        );
+        // Debug.Log(
+        //     $"BreakableWall2 {name} BEFORE damage - Health: {health}/{maxHealth}, Incoming damage: {damage}"
+        // );
 
         health -= damage;
 
-        Debug.Log($"BreakableWall2 {name} AFTER damage - Health: {health}/{maxHealth}");
+        // Debug.Log($"BreakableWall2 {name} AFTER damage - Health: {health}/{maxHealth}");
 
         if (health <= 0)
         {
-            Debug.Log($"BreakableWall2 {name} health <= 0, calling Break()!");
+            // Debug.Log($"BreakableWall2 {name} health <= 0, calling Break()!");
             Break();
         }
         else
         {
-            Debug.Log($"BreakableWall2 {name} still has {health} health remaining");
+            // Debug.Log($"BreakableWall2 {name} still has {health} health remaining");
         }
     }
 
     public void Break()
     {
-        Debug.Log($"BreakableWall2 {name} is breaking!");
+        // Debug.Log($"BreakableWall2 {name} is breaking!");
 
         // Play effects
         if (breakEffect != null)

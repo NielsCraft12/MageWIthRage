@@ -74,7 +74,7 @@ public class PlayerActionsnput
         // Debug key bindings for testing
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("Manual reset triggered!");
+            //  Debug.Log("Manual reset triggered!");
             ForceResetAttack();
         }
 
@@ -95,9 +95,9 @@ public class PlayerActionsnput
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        Debug.Log(
-            $"OnAttack called - context.performed: {context.performed}, canAttack: {canAttack}, isAttacking: {isAttacking}"
-        );
+        // Debug.Log(
+        //     $"OnAttack called - context.performed: {context.performed}, canAttack: {canAttack}, isAttacking: {isAttacking}"
+        // );
 
         if (!context.performed)
             return;
@@ -105,7 +105,7 @@ public class PlayerActionsnput
         // Only allow attack if we can attack
         if (!canAttack)
         {
-            Debug.Log("Attack blocked - canAttack is false");
+            //  Debug.Log("Attack blocked - canAttack is false");
             return;
         }
 
@@ -113,7 +113,7 @@ public class PlayerActionsnput
         if (attackActive == 0)
         {
             BonkLvl1Pressed = true;
-            Debug.Log("Setting BonkLvl1Pressed = true (Attack Type 0)");
+            // Debug.Log("Setting BonkLvl1Pressed = true (Attack Type 0)");
         }
         else if (attackActive == 1)
         {
@@ -121,11 +121,11 @@ public class PlayerActionsnput
             if (LevelManager.instance != null && LevelManager.instance.abilitiesUnlocked >= 3)
             {
                 BonkPressed = true;
-                Debug.Log("Setting BonkPressed = true (Attack Type 1)");
+                // Debug.Log("Setting BonkPressed = true (Attack Type 1)");
             }
             else
             {
-                Debug.Log("Attack Type 1 selected but not unlocked yet or LevelManager not found!");
+                // Debug.Log("Attack Type 1 selected but not unlocked yet or LevelManager not found!");
                 return; // Don't start attack if not unlocked
             }
         }
@@ -142,7 +142,7 @@ public class PlayerActionsnput
         }
         else
         {
-            Debug.LogWarning("MemoryUse component not found on this GameObject!");
+            // Debug.LogWarning("MemoryUse component not found on this GameObject!");
         }
     }
 
@@ -153,9 +153,9 @@ public class PlayerActionsnput
         canAttack = false;
         isAttacking = true;
 
-        Debug.Log(
-            $"Player is attacking with attack type {attackActive} ({GetAttackTypeName(attackActive)})!"
-        );
+        // Debug.Log(
+        //     $"Player is attacking with attack type {attackActive} ({GetAttackTypeName(attackActive)})!"
+        // );
 
         // The actual attack damage will be triggered by animation event
         // Animation will call "TriggerAttackDamage" when the attack should hit
@@ -170,26 +170,29 @@ public class PlayerActionsnput
         // Only damage if we're actually in an attack state
         if (!isAttacking)
         {
-            Debug.Log("TriggerAttackDamage called but player is not attacking - ignoring");
+            // Debug.Log("TriggerAttackDamage called but player is not attacking - ignoring");
             return;
         }
 
         // Find all targets in attack range
         Collider[] targets = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
-        Debug.Log($"Player attack found {targets.Length} potential targets in range");
+        //Debug.Log($"Player attack found {targets.Length} potential targets in range");
 
         foreach (Collider target in targets)
         {
             // Skip if it's the player itself
             if (target.gameObject == gameObject)
             {
-                Debug.Log("Skipping player self");
+                //   Debug.Log("Skipping player self");
                 continue;
             }
 
-            // Check if it's an enemy (has Enemy tag or Slime component)
-            bool isEnemy = target.CompareTag("Enemy") || target.GetComponent<Slime>() != null;
+            // Check if it's an enemy (has Enemy tag, Slime component, or GhostDamage component)
+            bool isEnemy =
+                target.CompareTag("Enemy")
+                || target.GetComponent<Slime>() != null
+                || target.GetComponent<GhostDamage>() != null;
 
             if (isEnemy)
             {
@@ -198,11 +201,21 @@ public class PlayerActionsnput
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(attackDamage);
-                    Debug.Log($"Player attacked {target.name} for {attackDamage} damage!");
+                    //  Debug.Log($"Player attacked {target.name} for {attackDamage} damage!");
                 }
                 else
                 {
-                    Debug.Log($"Enemy {target.name} has no Health component");
+                    // Check if it's a ghost enemy
+                    GhostDamage ghostDamage = target.GetComponent<GhostDamage>();
+                    if (ghostDamage != null)
+                    {
+                        ghostDamage.TakeDamage(attackDamage);
+                        //  Debug.Log($"Player attacked ghost {target.name} for {attackDamage} damage!");
+                    }
+                    else
+                    {
+                        // Debug.Log($"Enemy {target.name} has no Health component");
+                    }
                 }
             }
             else
@@ -214,17 +227,17 @@ public class PlayerActionsnput
                 if (breakableWall2 != null)
                 {
                     // Debug: Log current attack type and damage
-                    Debug.Log(
-                        $"BreakableWall2 found! attackActive: {attackActive}, attackDamage: {attackDamage}"
-                    );
+                    // Debug.Log(
+                    //     $"BreakableWall2 found! attackActive: {attackActive}, attackDamage: {attackDamage}"
+                    // );
 
                     // For BreakableWall2, try damage system first, fall back to instant break
                     if (attackActive == 1) // Second attack type for instant break
                     {
                         breakableWall2.Break();
-                        Debug.Log(
-                            "Player broke wall " + target.name + " instantly with second attack!"
-                        );
+                        // Debug.Log(
+                        //     "Player broke wall " + target.name + " instantly with second attack!"
+                        // );
                     }
                     // else
                     // {
@@ -245,13 +258,13 @@ public class PlayerActionsnput
                     if (attackActive == 1)
                     {
                         newBreakableWall.Break();
-                        Debug.Log($"Player broke wall {target.name} instantly!");
+                        //  Debug.Log($"Player broke wall {target.name} instantly!");
                     }
                     // For newBreakableWall, use the instant break method
                 }
                 else
                 {
-                    Debug.Log($"Object {target.name} is not an enemy or breakable wall");
+                    // Debug.Log($"Object {target.name} is not an enemy or breakable wall");
                 }
             }
         }
@@ -262,7 +275,7 @@ public class PlayerActionsnput
     /// </summary>
     public void ForceResetAttack()
     {
-        Debug.Log("Force resetting attack state!");
+        // Debug.Log("Force resetting attack state!");
         // Reset the attack state directly since EndAttack is moved to IdleManager
         canAttack = true;
         isAttacking = false;
@@ -287,7 +300,7 @@ public class PlayerActionsnput
     /// </summary>
     public void StartAttackDamageWindow()
     {
-        Debug.Log("Attack damage window started via animation event");
+        //Debug.Log("Attack damage window started via animation event");
         // You can add specific logic here for when damage should start
     }
 
@@ -296,7 +309,7 @@ public class PlayerActionsnput
     /// </summary>
     public void EndAttackDamageWindow()
     {
-        Debug.Log("Attack damage window ended via animation event");
+        // Debug.Log("Attack damage window ended via animation event");
         // You can add specific logic here for when damage should end
     }
 
@@ -305,7 +318,7 @@ public class PlayerActionsnput
     /// </summary>
     public void ResetAttackState()
     {
-        Debug.Log("Attack state reset via animation event");
+        //Debug.Log("Attack state reset via animation event");
         ForceResetAttack();
     }
 
@@ -318,7 +331,7 @@ public class PlayerActionsnput
         isAttacking = false;
         BonkPressed = false;
         BonkLvl1Pressed = false;
-        Debug.Log("Attack ended by IdleManager");
+        // Debug.Log("Attack ended by IdleManager");
     }
 
     #endregion
@@ -386,13 +399,13 @@ public class PlayerActionsnput
             if (attempts >= maxAttackTypes)
             {
                 attackActive = originalAttackActive;
-                Debug.Log("No unlocked attacks available to cycle to!");
+                // Debug.Log("No unlocked attacks available to cycle to!");
                 return;
             }
         } while (!IsAttackUnlocked(attackActive));
 
         // Give feedback to player about current attack
-        Debug.Log($"Attack type changed to: {GetAttackTypeName(attackActive)}");
+        // Debug.Log($"Attack type changed to: {GetAttackTypeName(attackActive)}");
 
         // You could also add UI feedback here, like updating a UI element
         // or playing a sound effect
@@ -448,16 +461,16 @@ public class PlayerActionsnput
                 if (IsAttackUnlocked(i))
                 {
                     attackActive = i;
-                    Debug.Log(
-                        $"Attack selection reset to unlocked attack: {GetAttackTypeName(attackActive)}"
-                    );
+                    // Debug.Log(
+                    //     $"Attack selection reset to unlocked attack: {GetAttackTypeName(attackActive)}"
+                    // );
                     return;
                 }
             }
 
             // If no attacks are unlocked, default to attack 0 (should always be unlocked)
             attackActive = 0;
-            Debug.LogWarning("No unlocked attacks found, defaulting to attack 0");
+            //   Debug.LogWarning("No unlocked attacks found, defaulting to attack 0");
         }
     }
 
@@ -467,9 +480,9 @@ public class PlayerActionsnput
     public void RefreshAttackAvailability()
     {
         EnsureValidAttackSelection();
-        Debug.Log(
-            $"Attack availability refreshed. Current attack: {GetAttackTypeName(attackActive)}"
-        );
+        // Debug.Log(
+        //     $"Attack availability refreshed. Current attack: {GetAttackTypeName(attackActive)}"
+        // );
     }
 
     #endregion
@@ -479,13 +492,13 @@ public class PlayerActionsnput
     /// </summary>
     public void DebugAttackState()
     {
-        Debug.Log($"=== Attack State Debug ===");
-        Debug.Log($"canAttack: {canAttack}");
-        Debug.Log($"isAttacking: {isAttacking}");
-        Debug.Log($"BonkPressed: {BonkPressed}");
-        Debug.Log($"BonkLvl1Pressed: {BonkLvl1Pressed}");
-        Debug.Log($"attackActive: {attackActive}");
-        Debug.Log($"Current Attack: {GetAttackTypeName(attackActive)}");
-        Debug.Log($"=========================");
+        // Debug.Log($"=== Attack State Debug ===");
+        // Debug.Log($"canAttack: {canAttack}");
+        // Debug.Log($"isAttacking: {isAttacking}");
+        // Debug.Log($"BonkPressed: {BonkPressed}");
+        // Debug.Log($"BonkLvl1Pressed: {BonkLvl1Pressed}");
+        // Debug.Log($"attackActive: {attackActive}");
+        // Debug.Log($"Current Attack: {GetAttackTypeName(attackActive)}");
+        // Debug.Log($"=========================");
     }
 }

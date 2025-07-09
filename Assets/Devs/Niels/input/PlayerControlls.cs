@@ -1006,8 +1006,8 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
 
     ~@PlayerControlls()
     {
-        UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerControlls.Player.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerControlls.UI.Disable() has not been called.");
+        //UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerControlls.Player.Disable() has not been called.");
+      //  UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerControlls.UI.Disable() has not been called.");
     }
 
     /// <summary>

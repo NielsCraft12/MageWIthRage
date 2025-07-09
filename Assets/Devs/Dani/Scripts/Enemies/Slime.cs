@@ -194,15 +194,15 @@ public class Slime : Enemy
             // Check if we're on cooldown
             if (Time.time - _lastDamageTime < _damageCooldown)
             {
-                Debug.Log(
-                    $"Slime damage on cooldown for {_damageCooldown - (Time.time - _lastDamageTime):F1} more seconds"
-                );
+                // Debug.Log(
+                //     $"Slime damage on cooldown for {_damageCooldown - (Time.time - _lastDamageTime):F1} more seconds"
+                // );
                 return;
             }
 
             if (_damageCoroutine == null)
             {
-                Debug.Log("Player hit by slime - starting damage!");
+                // Debug.Log("Player hit by slime - starting damage!");
                 _lastDamageTime = Time.time;
                 _damageCoroutine = StartCoroutine(Damage(collision));
             }
@@ -217,7 +217,7 @@ public class Slime : Enemy
             {
                 StopCoroutine(_damageCoroutine);
                 _damageCoroutine = null;
-                Debug.Log("Player left slime collision - stopping damage");
+                //   Debug.Log("Player left slime collision - stopping damage");
             }
         }
     }
@@ -230,7 +230,7 @@ public class Slime : Enemy
             {
                 StopCoroutine(_damageCoroutine);
                 _damageCoroutine = null;
-                Debug.Log("Player left slime trigger - stopping damage");
+                //  Debug.Log("Player left slime trigger - stopping damage");
             }
         }
     }
@@ -245,7 +245,7 @@ public class Slime : Enemy
         if (playerHealth != null)
         {
             playerHealth.TakeDamage(10);
-            Debug.Log("Slime dealt initial 10 damage to player on contact!");
+            //Debug.Log("Slime dealt initial 10 damage to player on contact!");
             damageCount++;
         }
 
@@ -257,7 +257,7 @@ public class Slime : Enemy
             // Double-check player is still valid and has the right tag
             if (player == null || !player.CompareTag("Player"))
             {
-                Debug.Log("Player object became invalid - stopping damage");
+                // Debug.Log("Player object became invalid - stopping damage");
                 break;
             }
 
@@ -265,19 +265,19 @@ public class Slime : Enemy
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(10); // Deal 10 damage (adjust as needed)
-                Debug.Log($"Slime dealt 10 damage to player! (tick {damageCount + 1})");
+                //Debug.Log($"Slime dealt 10 damage to player! (tick {damageCount + 1})");
                 damageCount++;
             }
             else
             {
-                Debug.LogWarning("Player has no Health component!");
+                // Debug.LogWarning("Player has no Health component!");
                 break;
             }
         }
 
         // Clean up when done
         _damageCoroutine = null;
-        Debug.Log("Damage coroutine ended");
+        // Debug.Log("Damage coroutine ended");
     }
 
     private void ToControl()

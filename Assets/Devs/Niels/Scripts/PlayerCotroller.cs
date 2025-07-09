@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
@@ -160,6 +161,11 @@ public class PlayerCotroller : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, playerRotation.x, 0f);
 
         playerCamera.transform.rotation = Quaternion.Euler(cameraRotation.y, cameraRotation.x, 0f);
+
+        if (LevelManager.instance.abilitiesUnlocked >= 10)
+        {
+            StartCoroutine(LoadLevel());
+        }
     }
     #endregion
     #region State Checks
@@ -185,4 +191,10 @@ public class PlayerCotroller : MonoBehaviour
     }
 
     #endregion
+    System.Collections.IEnumerator LoadLevel()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Loading Main Menu...");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
 }

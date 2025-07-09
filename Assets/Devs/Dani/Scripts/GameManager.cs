@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,9 +7,13 @@ public class GameManager : MonoBehaviour
 
     [Header("Dependencies")]
     private LevelManager levelManager;
-    [SerializeField] private GameObject player;
+
+    [SerializeField]
+    private GameObject player;
     public Transform[] checkpoints;
-    [HideInInspector] public int currentCheckpoint;
+
+    [HideInInspector]
+    public int currentCheckpoint;
 
     void Awake()
     {
@@ -22,7 +27,9 @@ public class GameManager : MonoBehaviour
         currentCheckpoint = LevelManager.instance.currentCheckpoint;
         if (currentCheckpoint != 0)
         {
-            player.transform.position = checkpoints[currentCheckpoint - 1].GetComponent<Checkpoint>().spawnPoint.position;
+            player.transform.position = checkpoints[currentCheckpoint - 1]
+                .GetComponent<Checkpoint>()
+                .spawnPoint.position;
         }
     }
 }

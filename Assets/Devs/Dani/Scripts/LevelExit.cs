@@ -8,13 +8,14 @@ public class LevelExit : MonoBehaviour
     {
         levelManager = LevelManager.instance;
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.name != "Player")
             return;
         if (LevelManager.instance.levels.Count <= LevelManager.instance.currentLevel)
         {
-            Debug.Log("No more levels to load.");
+            // Debug.Log("No more levels to load.");
             levelManager.currentLevel = 0;
             levelManager.currentCheckpoint = 0;
             levelManager.ToHome();
@@ -22,7 +23,7 @@ public class LevelExit : MonoBehaviour
         }
         LevelManager.instance.currentLevel++;
         LevelManager.instance.currentCheckpoint = 0;
-        Debug.Log("Level exit reached.");
+        // Debug.Log("Level exit reached.");
         LevelManager.instance.LoadLevel();
     }
 }

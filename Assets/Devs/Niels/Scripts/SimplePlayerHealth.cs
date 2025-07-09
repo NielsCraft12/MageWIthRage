@@ -18,7 +18,7 @@ public class SimplePlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log($"Player took {damage} damage. Current health: {currentHealth}");
+        //  Debug.Log($"Player took {damage} damage. Current health: {currentHealth}");
 
         if (currentHealth <= 0)
         {
@@ -29,12 +29,12 @@ public class SimplePlayerHealth : MonoBehaviour
     public void Heal(float amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
-        Debug.Log($"Player healed {amount}. Current health: {currentHealth}");
+        //  Debug.Log($"Player healed {amount}. Current health: {currentHealth}");
     }
 
     void Die()
     {
-        Debug.Log("Player died!");
+        // Debug.Log("Player died!");
 
         if (animator != null)
         {

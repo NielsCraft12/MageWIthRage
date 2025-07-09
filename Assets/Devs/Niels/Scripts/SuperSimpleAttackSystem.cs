@@ -33,7 +33,7 @@ public class SuperSimpleAttack : MonoBehaviour
     void Attack()
     {
         canAttack = false;
-        Debug.Log("Player is attacking!");
+        //    Debug.Log("Player is attacking!");
 
         // Animation will call DealDamage() when the attack should hit
         // Add this to your attack animation as an Animation Event
@@ -49,14 +49,28 @@ public class SuperSimpleAttack : MonoBehaviour
 
         foreach (Collider enemy in enemies)
         {
-            // Check if it's a slime
-            if (enemy.CompareTag("Enemy") || enemy.GetComponent<Slime>() != null)
+            // Check if it's an enemy (slime, has Enemy tag, or ghost)
+            if (
+                enemy.CompareTag("Enemy")
+                || enemy.GetComponent<Slime>() != null
+                || enemy.GetComponent<GhostDamage>() != null
+            )
             {
                 Health enemyHealth = enemy.GetComponent<Health>();
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(playerDamage);
-                    Debug.Log("Hit enemy for " + playerDamage + " damage!");
+                    //  Debug.Log("Hit enemy for " + playerDamage + " damage!");
+                }
+                else
+                {
+                    // Check if it's a ghost enemy
+                    GhostDamage ghostDamage = enemy.GetComponent<GhostDamage>();
+                    if (ghostDamage != null)
+                    {
+                        ghostDamage.TakeDamage(playerDamage);
+                        //  Debug.Log("Hit ghost for " + playerDamage + " damage!");
+                    }
                 }
             }
         }
@@ -68,7 +82,7 @@ public class SuperSimpleAttack : MonoBehaviour
     public void EndAttack()
     {
         canAttack = true;
-        Debug.Log("Attack finished, can attack again");
+        //Debug.Log("Attack finished, can attack again");
     }
 
     // Draw attack range in the editor
@@ -123,8 +137,7 @@ public class SuperSimpleSlimeAttack : MonoBehaviour
         {
             slimeAnimator.SetTrigger(attackTrigger);
         }
-
-        Debug.Log("Slime is attacking player!");
+        //      Debug.Log("Slime is attacking player!");
 
         // Wait for cooldown
         Invoke("ResetAttack", attackCooldown);
@@ -141,7 +154,7 @@ public class SuperSimpleSlimeAttack : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(slimeDamage);
-                Debug.Log("Slime hit player for " + slimeDamage + " damage!");
+                //       Debug.Log("Slime hit player for " + slimeDamage + " damage!");
             }
         }
     }

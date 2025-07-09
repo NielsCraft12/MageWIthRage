@@ -20,12 +20,12 @@ public class SlimeAttack : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Slime trigger entered by: {other.name}");
+        // Debug.Log($"Slime trigger entered by: {other.name}");
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
             currentPlayer = other.gameObject;
-            Debug.Log("Player entered slime attack range!");
+            //    Debug.Log("Player entered slime attack range!");
 
             if (canAttack)
             {
@@ -50,13 +50,13 @@ public class SlimeAttack : MonoBehaviour
         {
             playerInRange = false;
             currentPlayer = null;
-            Debug.Log("Player left slime attack range");
+            // Debug.Log("Player left slime attack range");
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"Slime collision with: {collision.gameObject.name}");
+        //Debug.Log($"Slime collision with: {collision.gameObject.name}");
         if (collision.gameObject.CompareTag("Player") && canAttack)
         {
             currentPlayer = collision.gameObject;
@@ -70,13 +70,13 @@ public class SlimeAttack : MonoBehaviour
             return;
 
         canAttack = false;
-        Debug.Log("Slime attacking player!");
+        // Debug.Log("Slime attacking player!");
 
         // Play attack animation if available
         if (slimeAnimator != null && !string.IsNullOrEmpty(attackTrigger))
         {
             slimeAnimator.SetTrigger(attackTrigger);
-            Debug.Log("Playing slime attack animation");
+            //   Debug.Log("Playing slime attack animation");
         }
         else
         {
@@ -99,11 +99,11 @@ public class SlimeAttack : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
-                Debug.Log($"Slime dealt {damage} damage to player!");
+                //       Debug.Log($"Slime dealt {damage} damage to player!");
             }
             else
             {
-                Debug.LogWarning("Player has no Health component!");
+                //       Debug.LogWarning("Player has no Health component!");
             }
         }
     }
@@ -111,7 +111,7 @@ public class SlimeAttack : MonoBehaviour
     void ResetAttack()
     {
         canAttack = true;
-        Debug.Log("Slime can attack again");
+        //  Debug.Log("Slime can attack again");
     }
 
     void OnDrawGizmosSelected()

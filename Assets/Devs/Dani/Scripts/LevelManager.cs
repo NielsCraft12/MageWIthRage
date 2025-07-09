@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour
             newGamePlus = data.gameData.newGamePlus;
             currentLevel = data.gameData.currentLevel;
             currentCheckpoint = data.gameData.currentCheckpoint;
-          //  abilitiesUnlocked = data.gameData.abilitiesUnlocked;
+            //  abilitiesUnlocked = data.gameData.abilitiesUnlocked;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -92,7 +92,7 @@ public class LevelManager : MonoBehaviour
     {
         if (scene.name == levels[currentLevel - 1])
         {
-            Debug.Log("Level loaded: " + scene.name);
+            // Debug.Log("Level loaded: " + scene.name);
             _gameManager = GameManager.instance;
             _gameManager.OnHook();
         }

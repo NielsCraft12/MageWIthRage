@@ -10,11 +10,11 @@ public class SettingsButtons : MonoBehaviour
             LevelManager.instance.currentLevel = 0;
             LevelManager.instance.newGamePlus = false;
             System.IO.File.Delete(path);
-            Debug.Log("Save data wiped successfully.");
+            //  Debug.Log("Save data wiped successfully.");
         }
         else
         {
-            Debug.Log("No save data found to wipe.");
+            //  Debug.Log("No save data found to wipe.");
         }
     }
 }

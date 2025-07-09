@@ -5,14 +5,27 @@ public class GhostHead : MonoBehaviour
 {
     [Header("Dependencies")]
     public Rigidbody rb;
-    [SerializeField] private Transform _ghost;
-    [SerializeField] private Animator _animator;
+
+    [SerializeField]
+    private Transform _ghost;
+
+    [SerializeField]
+    private Animator _animator;
     public Transform model;
 
     [Header("Settings")]
-    [SerializeField] private float _returnSpeed = 25f;
-    [ReadOnly][SerializeField] private float _returnMult = 0f;
-    [Tooltip("The return speed multiplier increase each FixedUpdate tick. Return multiplier caps at 1x")][SerializeField] private float _returnMultOnFixedUpdate = 0.025f;
+    [SerializeField]
+    private float _returnSpeed = 25f;
+
+    [ReadOnly]
+    [SerializeField]
+    private float _returnMult = 0f;
+
+    [Tooltip(
+        "The return speed multiplier increase each FixedUpdate tick. Return multiplier caps at 1x"
+    )]
+    [SerializeField]
+    private float _returnMultOnFixedUpdate = 0.025f;
 
     private bool _hitPlayer;
 
@@ -42,17 +55,23 @@ public class GhostHead : MonoBehaviour
         if (_returnMult < 1f)
         {
             _returnMult += _returnMultOnFixedUpdate;
-            if (_returnMult > 1f) _returnMult = 1f;
+            if (_returnMult > 1f)
+                _returnMult = 1f;
         }
 
-        rb.AddForce((_ghost.position + new Vector3(0, 1.5f, 0) - transform.position).normalized * _returnSpeed * _returnMult, ForceMode.Acceleration);
+        rb.AddForce(
+            (_ghost.position + new Vector3(0, 1.5f, 0) - transform.position).normalized
+                * _returnSpeed
+                * _returnMult,
+            ForceMode.Acceleration
+        );
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "Player" && !_hitPlayer)
         {
-            Debug.Log("Ghost head hit the player!");
+            //     Debug.Log("Ghost head hit the player!");
             _hitPlayer = true;
         }
     }

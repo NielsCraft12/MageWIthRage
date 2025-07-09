@@ -60,7 +60,17 @@ public class SimplePlayerAttack : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(attackDamage);
-                Debug.Log($"Player attacked {enemy.name} for {attackDamage} damage!");
+                //    Debug.Log($"Player attacked {enemy.name} for {attackDamage} damage!");
+            }
+            else
+            {
+                // Check if it's a ghost enemy
+                GhostDamage ghostDamage = enemy.GetComponent<GhostDamage>();
+                if (ghostDamage != null)
+                {
+                    ghostDamage.TakeDamage(attackDamage);
+                    //    Debug.Log($"Player attacked ghost {enemy.name} for {attackDamage} damage!");
+                }
             }
         }
 
@@ -78,9 +88,9 @@ public class SimplePlayerAttack : MonoBehaviour
             if (breakableWall2 != null)
             {
                 breakableWall2.TakeDamage(attackDamage);
-                Debug.Log(
-                    $"Player attacked breakable wall: {wall.name} for {attackDamage} damage!"
-                );
+                // Debug.Log(
+                //     $"Player attacked breakable wall: {wall.name} for {attackDamage} damage!"
+                // );
                 continue;
             }
 
@@ -89,7 +99,7 @@ public class SimplePlayerAttack : MonoBehaviour
             if (breakableWall != null)
             {
                 breakableWall.Break();
-                Debug.Log($"Player destroyed breakable wall: {wall.name}");
+                //  Debug.Log($"Player destroyed breakable wall: {wall.name}");
                 continue;
             }
 
@@ -98,7 +108,7 @@ public class SimplePlayerAttack : MonoBehaviour
             {
                 // Fallback: just destroy the GameObject
                 Destroy(wall.gameObject);
-                Debug.Log($"Player destroyed wall: {wall.name}");
+                //  Debug.Log($"Player destroyed wall: {wall.name}");
             }
         }
     }

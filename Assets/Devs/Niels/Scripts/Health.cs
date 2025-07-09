@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -156,6 +157,11 @@ public class Health : MonoBehaviour
         }
         Debug.Log(transform.gameObject.name + " has died.");
         // gameObject.SetActive(false); // Deactivate the player object
+        if (gameObject.CompareTag("Player"))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Death");
+        }
+
         Destroy(gameObject, 2f); // Destroy the player object after 2 seconds
         // You can add more logic here, such as respawning the player or ending the game.
     }
