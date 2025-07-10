@@ -1,4 +1,3 @@
-using Unity.Collections;
 using UnityEngine;
 
 public class GhostHead : MonoBehaviour

@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class Buttons : MonoBehaviour
 {
+    [SerializeField]
+    Canvas mainMenuCanvas;
+
+    [SerializeField]
+    Canvas creditsMenuCanvas;
+
     public void ChangeScene(string sceneName)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
@@ -25,5 +31,17 @@ public class Buttons : MonoBehaviour
 #elif (UNITY_WEBGL)
         Application.OpenURL("itch url ");
 #endif
+    }
+
+    public void openCredits()
+    {
+        creditsMenuCanvas.enabled = true;
+        mainMenuCanvas.enabled = false;
+    }
+
+    public void closeCredits()
+    {
+        creditsMenuCanvas.enabled = false;
+        mainMenuCanvas.enabled = true;
     }
 }
